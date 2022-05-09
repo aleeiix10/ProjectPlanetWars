@@ -442,28 +442,28 @@ public class Planet {
 		JLabel [] label_image = new JLabel[11];
 		JButton bt_salir = new JButton();
 		
-
-		//for para instanciar los paneles y añadirlos al JFrame
+		
+		//for para instanciar los paneles y incluirlos al JFrame
 		for (int i=0;i<paneles.length;i++) {
 			paneles[i] = new JPanel();
 			paneles[i].setBackground(Color.black);
 			paneles[i].setLayout(new BorderLayout());
 			mostrarDatos.add(paneles[i]);
 		}	
-		//for para añadir las labels con sus respectivos fondos
+		//for para incluir las labels con sus respectivos fondos
 		for (int i=0;i<labels.length;i++) {
 			labels[i] = new JLabel();
 			labels[i].setBackground(Color.black);
 			labels[i].setForeground(Color.white);
 		}
 		
-		//for para añadir los image_labels a la lista
+		//for para incluir los image_labels a la lista
 		for (int i=0;i<label_image.length;i++) {
 			label_image[i] = new JLabel();
 			label_image[i].setBackground(Color.black);
 		}
 		
-		//Botón para salir del menú de Datos del planeta
+		//Boton para salir del menu de Datos del planeta
 			bt_salir.setText("Go Back");
 			bt_salir.setBackground(new Color(225, 201, 134));
 			bt_salir.setForeground(Color.black);
@@ -605,7 +605,7 @@ public class Planet {
 		mostrarDatos.setSize(1120,682);
 		mostrarDatos.setLocationRelativeTo(null);
 		mostrarDatos.setVisible(true);
-
+		mostrarDatos.setResizable(false);
 		
 		
 	}

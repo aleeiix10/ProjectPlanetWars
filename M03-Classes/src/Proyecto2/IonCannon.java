@@ -1,61 +1,72 @@
 package Proyecto2;
 
-public class IonCannon extends Defense{
-	int armadura = Variables.ARMOR_MISSILELAUNCHER;
+public class IonCannon extends Defense implements MilitaryUnit{
+	
 	int armadura_plus = Variables.PLUS_ARMOR_MISSILELAUNCHER_BY_TECHNOLOGY;
-	int dano = Variables.BASE_DAMAGE_MISSILELAUNCHER;
 	int dano_plus = Variables.PLUS_ATTACK_MISSILELAUNCHER_BY_TECHNOLOGY;
+	
 	IonCannon(int armor,int baseDamage){
-		this.dano = baseDamage;
+		this.baseDamage = baseDamage;
+		this.armor = armor;
 		this.initialArmor = armor;
 	}
 
 	@Override
 	public int attack() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.baseDamage;
 	}
 
 	@Override
 	public void takeDamage(int receivedDamage) {
-		// TODO Auto-generated method stub
-		
+		this.armor = this.armor - receivedDamage;
 	}
 
 	@Override
 	public int getActualArmor() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.armor;
 	}
 
 	@Override
 	public int getMetalCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Variables.METAL_COST_IONCANNON;
 	}
 
 	@Override
 	public int getDeuteriumCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Variables.DEUTERIUM_COST_IONCANNON;
 	}
 
 	@Override
 	public int getChanceGeneratinWaste() {
-		// TODO Auto-generated method stub
+		int porcentaje=Variables.CHANCE_GENERATNG_WASTE_IONCANNON;
+		int num_random;
+		
+		num_random = (int)(Math.random()*101);
+		
+		if (num_random<=porcentaje) {
+			return 1;
+		}
+		
 		return 0;
 	}
 
 	@Override
 	public int getChanceAttackAgain() {
-		// TODO Auto-generated method stub
+		int porcentaje=Variables.CHANCE_ATTACK_AGAIN_IONCANNON
+		int num_random;
+		
+		num_random = (int)(Math.random()*101);
+		
+		if (num_random<=porcentaje) {
+			return 1;
+		}
+		
 		return 0;
 	}
 
 	@Override
 	public void resetArmor() {
-		// TODO Auto-generated method stub
-		
+		this.armor = this.initialArmor;
 	}
 	
 }

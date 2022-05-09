@@ -3,15 +3,15 @@ package Proyecto2;
 import java.util.ArrayList;
 
 public class Battle {
-	ArrayList <MilitaryUnit> [] enemyArmy = new ArrayList[7]; //→ para almacenar 
-													//la flota de nuestro planeta.
-	ArrayList <MilitaryUnit> [] planetArmy; //→ para almacenar la flota enemiga
+	ArrayList <MilitaryUnit> [] enemyArmy; //→ para almacenar la flota enemiga.
 	
-	ArrayList[][] armies; //almacenaremos nuestro ejército en la primera fila,
-						//y el ejército enemigo en la segunda fila;
+	ArrayList <MilitaryUnit> [] planetArmy; // para almacenar la flota de nuestro planeta
+	
+	ArrayList[][] armies; //almacenaremos nuestro ejercito en la primera fila,
+						//y el ejercito enemigo en la segunda fila;
 
 	String battleDevelopment;
-	int[][] initialCostFleet;//→ coste de metal deuterio de los ejercitos iniciales 
+	int[][] initialCostFleet;//el coste de metal y deuterio de los ejercitos iniciales 
 	
 	//La batalla termina si uno de los 2 tiene menos de un 20% del ejercito inicial
 	int initialNumberUnitsPlanet;
@@ -40,8 +40,67 @@ public class Battle {
 	int[] actualNumberUnitsEnemy;
 	//Array igual que initialArmies pero por separado y de las unidades actuales
 	
-	public Battle(ArrayList <MilitaryUnit> [] planetArmy) {
+	public Battle(ArrayList <MilitaryUnit> [] planetArmy,int metal,int deuterium,int lvl_att,int lvl_def) {
 		this.planetArmy = planetArmy;
+		this.enemyArmy = createEnemyFleet(metal, deuterium, lvl_att, lvl_def);
 	}
+	
+	//metodo para crear el enemyArmy, por variables de entrada tiene el metal, deuterium i el nivel de las tecnologias para adaptar la dificultad 
+	public ArrayList <MilitaryUnit> [] createEnemyFleet(int metal,int deuterium,int lvl_att, int lvl_def){
+		int num_random;
+		//el array enemyFleet: [arrayListLightHunter, arrayListHeavyHunter, arrayListBattleShip, arrayListArmoredShip]
+		ArrayList <MilitaryUnit> [] enemyFleet = new ArrayList[4];
+		
+		while (metal >= Variables.METAL_COST_LIGTHHUNTER && deuterium >= Variables.DEUTERIUM_COST_LIGTHHUNTER) {
+			
+			//numero random entre 0 i 3
+			num_random = (int)(Math.random()*101);
+			
+			if (num_random >= 0 && num_random<35) {
+				int plus_AttTech = Variables.PLUS_ATTACK_LIGTHHUNTER_BY_TECHNOLOGY;
+				int plus_DefTech = Variables.PLUS_ARMOR_LIGTHHUNTER_BY_TECHNOLOGY;
+				
+				metal = metal - Variables.METAL_COST_LIGTHHUNTER;
+				deuterium = deuterium - Variables.DEUTERIUM_COST_LIGTHHUNTER;
+				
+				enemyFleet[0].add(new LigthHunter((Variables.BASE_DAMAGE_LIGTHHUNTER + (lvl_att * plus_AttTech * 10)),
+						(Variables.ARMOR_LIGTHHUNTER + (lvl_def * plus_DefTech * 10))));
+			}
+			else if (num_random>=35 && num_random<60 && metal >= Variables.METAL_COST_HEAVYHUNTER && deuterium >= Variables.DEUTERIUM_COST_HEAVYHUNTER) {
+				int plus_AttTech = Variables.PLUS_ATTACK_HEAVYHUNTER_BY_TECHNOLOGY;
+				int plus_DefTech = Variables.PLUS_ARMOR_HEAVYHUNTER_BY_TECHNOLOGY;
+				
+				metal = metal - Variables.METAL_COST_HEAVYHUNTER;
+				deuterium = deuterium - Variables.DEUTERIUM_COST_HEAVYHUNTER;
+				
+				enemyFleet[1].add(new HeavyHunter((Variables.BASE_DAMAGE_HEAVYHUNTER + (lvl_att * plus_AttTech * 10)),
+						(Variables.ARMOR_HEAVYHUNTER + (lvl_def * plus_DefTech * 10))));
+			}
+			else if (num_random >= 60 && num_random<80 && metal >= Variables.METAL_COST_BATTLESHIP && deuterium >= Variables.DEUTERIUM_COST_BATTLESHIP) {
+				int plus_AttTech = Variables.PLUS_ATTACK_BATTLESHIP_BY_TECHNOLOGY;
+				int plus_DefTech = Variables.PLUS_ARMOR_BATTLESHIP_BY_TECHNOLOGY;
+				
+				metal = metal - Variables.METAL_COST_BATTLESHIP;
+				deuterium = deuterium - Variables.DEUTERIUM_COST_BATTLESHIP;
+				
+				enemyFleet[2].add(new BattleShip((Variables.BASE_DAMAGE_BATTLESHIP + (lvl_att * plus_AttTech * 10)),
+						(Variables.ARMOR_BATTLESHIP + (lvl_def * plus_DefTech * 10))));
+			}
+			else if (num_random >= 80 && num_random <=100 && metal >= Variables.METAL_COST_ARMOREDSHIP && deuterium >= Variables.DEUTERIUM_COST_ARMOREDSHIP){
+				int plus_AttTech = Variables.PLUS_ATTACK_ARMOREDSHIP_BY_TECHNOLOGY;
+				int plus_DefTech = Variables.PLUS_ARMOR_ARMOREDSHIP_BY_TECHNOLOGY;
+				
+				metal = metal - Variables.METAL_COST_ARMOREDSHIP;
+				deuterium = deuterium - Variables.DEUTERIUM_COST_ARMOREDSHIP;
+				
+				enemyFleet[3].add(new ArmoredShip((Variables.BASE_DAMAGE_ARMOREDSHIP + (lvl_att * plus_AttTech * 10)),
+						(Variables.ARMOR_ARMOREDSHIP + (lvl_def * plus_DefTech * 10))));
+			}	
+			
+		}
+
+		return enemyFleet;
+	}
+	
 	
 }

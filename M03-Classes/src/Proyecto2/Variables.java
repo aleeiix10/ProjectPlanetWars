@@ -15,6 +15,7 @@ public interface Variables {
     // TECHNOLOGY COST
     public final int UPGRADE_BASE_DEFENSE_TECHNOLOGY_DEUTERIUM_COST = 2000;
     public final int UPGRADE_BASE_ATTACK_TECHNOLOGY_DEUTERIUM_COST = 2000;
+    
     public final int UPGRADE_PLUS_DEFENSE_TECHNOLOGY_DEUTERIUM_COST = 60;
     public final int UPGRADE_PLUS_ATTACK_TECHNOLOGY_DEUTERIUM_COST = 60;
     
@@ -23,6 +24,7 @@ public interface Variables {
     public final int METAL_COST_HEAVYHUNTER = 6500;
     public final int METAL_COST_BATTLESHIP = 45000;
     public final int METAL_COST_ARMOREDSHIP = 30000;
+    
     public final int DEUTERIUM_COST_LIGTHHUNTER = 50;
     public final int DEUTERIUM_COST_HEAVYHUNTER = 50;
     public final int DEUTERIUM_COST_BATTLESHIP = 7000;

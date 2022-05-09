@@ -23,5 +23,4 @@ public abstract class Ship implements Variables,MilitaryUnit{
 	public void setBaseDamage(int baseDamage) {
 		this.baseDamage = baseDamage;
 	}
-	
 }

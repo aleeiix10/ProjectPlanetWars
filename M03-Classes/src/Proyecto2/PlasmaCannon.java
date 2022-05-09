@@ -1,61 +1,72 @@
 package Proyecto2;
 
-public class PlasmaCannon extends Defense{
-	int armadura = Variables.ARMOR_PLASMACANNON;
+public class PlasmaCannon extends Defense implements MilitaryUnit{
+	
 	int armadura_plus = Variables.PLUS_ARMOR_PLASMACANNON_BY_TECHNOLOGY;
-	int dano = Variables.BASE_DAMAGE_PLASMACANNON;
 	int dano_plus = Variables.PLUS_ATTACK_PLASMACANNON_BY_TECHNOLOGY;
+	
 	PlasmaCannon(int armor,int baseDamage){
-		this.dano = baseDamage;
+		this.baseDamage = baseDamage;
+		this.armor = armor;
 		this.initialArmor = armor;
 	}
 
 	@Override
 	public int attack() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.baseDamage;
 	}
 
 	@Override
 	public void takeDamage(int receivedDamage) {
-		// TODO Auto-generated method stub
-		
+		this.armor = this.armor - receivedDamage;
 	}
 
 	@Override
 	public int getActualArmor() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.armor;
 	}
 
 	@Override
 	public int getMetalCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Variables.METAL_COST_PLASMACANNON;
 	}
 
 	@Override
 	public int getDeuteriumCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Variables.DEUTERIUM_COST_PLASMACANNON;
 	}
 
 	@Override
 	public int getChanceGeneratinWaste() {
-		// TODO Auto-generated method stub
+		int porcentaje=Variables.CHANCE_GENERATNG_WASTE_PLASMACANNON;
+		int num_random;
+		
+		num_random = (int)(Math.random()*101);
+		
+		if (num_random<=porcentaje) {
+			return 1;
+		}
+		
 		return 0;
 	}
 
 	@Override
 	public int getChanceAttackAgain() {
-		// TODO Auto-generated method stub
+		int porcentaje=Variables.CHANCE_ATTACK_AGAIN_PLASMACANNON;
+		int num_random;
+		
+		num_random = (int)(Math.random()*101);
+		
+		if (num_random<=porcentaje) {
+			return 1;
+		}
+		
 		return 0;
 	}
 
 	@Override
 	public void resetArmor() {
-		// TODO Auto-generated method stub
-		
+		this.armor = this.initialArmor;
 	}
 	
 }

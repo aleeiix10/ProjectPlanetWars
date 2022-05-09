@@ -1,63 +1,77 @@
 package Proyecto2;
 
-public class HeavyHunter extends Ship{
-	int armadura = Variables.ARMOR_HEAVYHUNTER;
+public class HeavyHunter extends Ship implements MilitaryUnit{
+	
 	int armadura_plus = Variables.PLUS_ARMOR_HEAVYHUNTER_BY_TECHNOLOGY;
-	int dano = Variables.BASE_DAMAGE_HEAVYHUNTER;
 	int dano_plus = Variables.PLUS_ATTACK_HEAVYHUNTER_BY_TECHNOLOGY;
-	int initialArmor;
 	
 	HeavyHunter(int armor,int baseDamage){
-		this.dano = baseDamage;
+		this.baseDamage = baseDamage;
+		this.armor = armor;
 		this.initialArmor = armor;
 	}
-	HeavyHunter(){};
+	
+	HeavyHunter(){
+		this.baseDamage = Variables.BASE_DAMAGE_HEAVYHUNTER;
+		this.armor = Variables.ARMOR_HEAVYHUNTER;
+		this.initialArmor = Variables.ARMOR_HEAVYHUNTER;
+	};
 	@Override
 	public int attack() {
-		// TODO Auto-generated method stub
-		return 0;
+		return baseDamage;
 	}
 
 	@Override
 	public void takeDamage(int receivedDamage) {
-		// TODO Auto-generated method stub
-		
+		this.armor = this.armor - receivedDamage;
 	}
 
 	@Override
 	public int getActualArmor() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.armor;
 	}
 
 	@Override
 	public int getMetalCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Variables.METAL_COST_HEAVYHUNTER;
 	}
 
 	@Override
 	public int getDeuteriumCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Variables.DEUTERIUM_COST_HEAVYHUNTER;
 	}
 
 	@Override
 	public int getChanceGeneratinWaste() {
-		// TODO Auto-generated method stub
+		int porcentaje=Variables.CHANCE_GENERATNG_WASTE_HEAVYHUNTER;
+		int num_random;
+		
+		num_random = (int)(Math.random()*101);
+		
+		if (num_random<=porcentaje) {
+			return 1;
+		}
+		
 		return 0;
 	}
 
 	@Override
 	public int getChanceAttackAgain() {
-		// TODO Auto-generated method stub
+		int porcentaje=Variables.CHANCE_ATTACK_AGAIN_HEAVYHUNTER;
+		int num_random;
+		
+		num_random = (int)(Math.random()*101);
+		
+		if (num_random<=porcentaje) {
+			return 1;
+		}
+		
 		return 0;
 	}
 
 	@Override
 	public void resetArmor() {
-		// TODO Auto-generated method stub
-		
+		this.armor = this.initialArmor;
 	}
 
 }
