@@ -1,6 +1,8 @@
 package Proyecto2;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -438,6 +440,8 @@ public class Planet {
 		JPanel [] paneles = new JPanel[40];
 		JLabel [] labels = new JLabel[16];
 		JLabel [] label_image = new JLabel[11];
+		JButton bt_salir = new JButton();
+		
 
 		//for para instanciar los paneles y añadirlos al JFrame
 		for (int i=0;i<paneles.length;i++) {
@@ -458,6 +462,20 @@ public class Planet {
 			label_image[i] = new JLabel();
 			label_image[i].setBackground(Color.black);
 		}
+		
+		//Botón para salir del menú de Datos del planeta
+			bt_salir.setText("Go Back");
+			bt_salir.setBackground(new Color(225, 201, 134));
+			bt_salir.setForeground(Color.black);
+			bt_salir.setFocusable(false);
+			bt_salir.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					mostrarDatos.dispose();
+				}
+			});
+			paneles[4].setLayout(new FlowLayout());
+			paneles[4].add(bt_salir);
 		
 		int lvlatt = getTechonologyAttack();
 		int lvldef = getTechnologyDefense();
