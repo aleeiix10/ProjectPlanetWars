@@ -11,6 +11,7 @@ public class Battle {
 						//y el ejercito enemigo en la segunda fila;
 
 	String battleDevelopment;
+	
 	int[][] initialCostFleet;//el coste de metal y deuterio de los ejercitos iniciales 
 	
 	//La batalla termina si uno de los 2 tiene menos de un 20% del ejercito inicial
@@ -43,6 +44,13 @@ public class Battle {
 	public Battle(ArrayList <MilitaryUnit> [] planetArmy,int metal,int deuterium,int lvl_att,int lvl_def) {
 		this.planetArmy = planetArmy;
 		this.enemyArmy = createEnemyFleet(metal, deuterium, lvl_att, lvl_def);
+	}
+	public void setArmies(ArrayList <MilitaryUnit> [] planetArmy, ArrayList <MilitaryUnit> [] enemyArmy) {
+		ArrayList[][] armi2 = {planetArmy,enemyArmy};
+		this.armies = armi2;
+	}
+	public ArrayList[][] getArmies(){
+		return this.armies;
 	}
 	
 	//metodo para crear el enemyArmy, por variables de entrada tiene el metal, deuterium i el nivel de las tecnologias para adaptar la dificultad 
@@ -100,6 +108,52 @@ public class Battle {
 		}
 
 		return enemyFleet;
+	}
+	
+	//Rellena la lista initialArmies y initialNumberUnitsPlanet/enemy 
+	public void initInitialArmies() {
+		int [] num_enemies = new int [4];
+		int num_totalEnemies = 0;
+		int [] num_alies = new int [7];
+		int num_totalAlies = 0;
+		//For que cuenta el número de enemigos y los añade a la lista num_enemies
+		for(int i=0; i<enemyArmy.length;i++) {
+			num_enemies[i] = enemyArmy[i].size();
+			num_totalEnemies = num_totalEnemies + enemyArmy[i].size();
+		}
+		
+		for(int i=0; i<planetArmy.length;i++) {
+			num_alies[i] = planetArmy[i].size();
+			num_totalAlies = num_totalAlies + planetArmy[i].size();
+
+		}
+		int [][] armies =  {num_alies,num_enemies};
+		
+		this.initialNumberUnitsEnemy = num_totalEnemies;
+		this.initialNumberUnitsPlanet = num_totalAlies;
+		this.initialArmies = armies;
+	}
+	
+	//team=0 indica que army se refiere a planet, team != 1 significa que se refiere a enemies 
+	public int remainderPercentageFleet (ArrayList<MilitaryUnit>[] army,int team) {
+		int num_totalUnits = 0;
+		//For que cuenta el número de enemigos y los añade a num_totalUnits
+		for(int i=0; i<army.length;i++) {
+			num_totalUnits = num_totalUnits + army[i].size();
+		}
+		//Caso en el que se refiera a Planet
+		if(team == 0) {
+			return (num_totalUnits/this.initialNumberUnitsPlanet)*100;
+		}
+		else {
+			return (num_totalUnits/this.initialNumberUnitsEnemy)*100;
+		}
+
+	}
+	
+	//Para generar array de pérdidas
+	public void updateResourcesLooses() {
+		System.out.println("Implementar");
 	}
 	
 	
