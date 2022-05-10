@@ -52,7 +52,7 @@ public class IonCannon extends Defense implements MilitaryUnit{
 
 	@Override
 	public int getChanceAttackAgain() {
-		int porcentaje=Variables.CHANCE_ATTACK_AGAIN_IONCANNON
+		int porcentaje=Variables.CHANCE_ATTACK_AGAIN_IONCANNON;
 		int num_random;
 		
 		num_random = (int)(Math.random()*101);

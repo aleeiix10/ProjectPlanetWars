@@ -1,4 +1,4 @@
-package Proyecto;
+package Proyecto2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,6 +7,18 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.CallableStatement;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -299,7 +311,7 @@ class menu_login extends JFrame{
 		JLabel etiqueta[]= new JLabel[40];
 		JButton boton[]=new JButton[3];
 		JTextField text[]= new JTextField[3];
-		JComboBox dia,mes,ano;
+		JComboBox dia,mes,ano; 
 		menu_register() {
 			pass.setBorder(null);
 			for (int i=0;i<etiqueta.length;i++) {
@@ -397,49 +409,62 @@ class menu_login extends JFrame{
 			String[] mespos= {"01","02","03","04","05","06","07","08","09","10","11","12"};
 			mes = new JComboBox(mespos);
 			String mesStr = (String)mes.getSelectedItem();
-			if (((Integer.parseInt(AnoStr)%4==0 && Integer.parseInt(AnoStr)%100!=0) && mesStr=="02") || (Integer.parseInt(AnoStr)%400==0 && Integer.parseInt(AnoStr)%100==0 && mesStr=="02")) {
-				String[] diasV= new String[29];
-				int diaEm=1;
-				for (int i=0;i<diasV.length;i++) {
-					diasV[i]=(String.valueOf(diaEm+i));
+			mes.addItemListener(new ItemListener() {
+				
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+				if (((Integer.parseInt(AnoStr)%4==0 && Integer.parseInt(AnoStr)%100!=0) && mesStr=="02") || (Integer.parseInt(AnoStr)%400==0 && Integer.parseInt(AnoStr)%100==0 && mesStr=="02")) {
+					String[] diasV= new String[29];
+					int diaEm=1;
+					for (int i=0;i<diasV.length;i++) {
+						diasV[i]=(String.valueOf(diaEm+i));
+						
+						dia.setPreferredSize(new Dimension(45,20));
+						panel[17].add(dia);
+					}
 				}
-			}
-			else if (mesStr=="02") {
-				String[] diasNV= new String[28];
-				int diaEm=1;
-				for (int i=0;i<diasNV.length;i++) {
-					diasNV[i]=(String.valueOf(diaEm+i));
-				}
+				else if (mesStr=="02") {
+					String[] diasNV= new String[28];
+					int diaEm=1;
+					for (int i=0;i<diasNV.length;i++) {
+						diasNV[i]=(String.valueOf(diaEm+i));
+						dia.setPreferredSize(new Dimension(45,20));
+						panel[17].add(dia);
+					}
 
-			}
-			else if (mesStr=="01" && mesStr=="03" && mesStr=="05" && mesStr=="07" && mesStr=="08" && mesStr=="10" && mesStr=="12") {
+				}
+				else if (mesStr=="01" && mesStr=="03" && mesStr=="05" && mesStr=="07" && mesStr=="08" && mesStr=="10" && mesStr=="12") {
+					String[] dias31= new String[31];
+					int diaEm=1;
+					for (int i=0;i<dias31.length;i++) {
+						dias31[i]=(String.valueOf(diaEm+i));
+						dia.setPreferredSize(new Dimension(45,20));
+						panel[17].add(dia);
+					}
+				}
+				else if (mesStr=="04" && mesStr=="06" && mesStr=="09" && mesStr=="11") {
+					String[] dias30= new String[30];
+					int diaEm=1;
+					for (int i=0;i<dias30.length;i++) {
+						dias30[i]=(String.valueOf(diaEm+i));
+						dia.setPreferredSize(new Dimension(45,20));
+						panel[17].add(dia);
+					}
+				}
 				String[] dias31= new String[31];
 				int diaEm=1;
 				for (int i=0;i<dias31.length;i++) {
 					dias31[i]=(String.valueOf(diaEm+i));
+					dia.setPreferredSize(new Dimension(45,20));
+					panel[17].add(dia);
 				}
-			}
-			else if (mesStr=="04" && mesStr=="06" && mesStr=="09" && mesStr=="11") {
-				String[] dias30= new String[30];
-				int diaEm=1;
-				for (int i=0;i<dias30.length;i++) {
-					dias30[i]=(String.valueOf(diaEm+i));
+				dia = new JComboBox(dias31);
 				}
-			}
-			String[] dias31= new String[31];
-			int diaEm=1;
-			for (int i=0;i<dias31.length;i++) {
-				dias31[i]=(String.valueOf(diaEm+i));
-			}
-			dia = new JComboBox(dias31);
-			
-			
+			});
 			ano.setPreferredSize(new Dimension(65,20));
 			mes.setPreferredSize(new Dimension(45,20));
-			dia.setPreferredSize(new Dimension(45,20));
 			panel[17].add(ano);
 			panel[17].add(mes);
-			panel[17].add(dia);
 			
 			//panel[17].add(text[2]);
 			panel[14].add(panel[16]);
@@ -485,9 +510,18 @@ class menu_login extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					frame.setVisible(false);
 					new menu_principal();
-					
+					String user = text[0].getText();
+					char[] password = pass.getPassword();
+					String data = dia+"/"+mes+"/"+ano;				
+					Conexion db=new Conexion("jdbc:oracle:thin:@192.168.40.2:1521:orcl","alumnoAMS5","alumnoAMS5");
+					//CallableStatement cst = db.prepareCall("{call GETSHIPVALUES (?,?,?,?,?,?,?,?,?,?)}");
+					boolean resultado = false;
+					if (resultado == false) {
+						
+					}
 				}
 			});
 		}
 }
+
 
