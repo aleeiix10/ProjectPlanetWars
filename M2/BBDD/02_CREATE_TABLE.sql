@@ -6,8 +6,8 @@ crear_Planet varchar2(600);
 crear_Ship varchar2(600);
 crear_Defense varchar2(600);
 crear_Battle varchar2(600);
-crear_Planet_has_Ship varchar2(600);
-crear_Planet_has_Defense varchar2(600);
+crear_Planet_Ship varchar2(600);
+crear_Planet_Defense varchar2(600);
 crear_Enemie varchar2(600);
 begin
 
@@ -59,20 +59,22 @@ crear_Battle :='CREATE TABLE Battle (
           End_Unities INT NOT NULL,
           FOREIGN KEY (ID_User) REFERENCES User_PW (ID_User)
 )';
-crear_Planet_has_Ship := 'CREATE TABLE Planet_has_Ship (
+crear_Planet_Ship := 'CREATE TABLE Planet_Ship (
           ID_Planet INT NOT NULL,
           ID_Ship INT NOT NULL,
           Quantity INT NOT NULL,
-          lvl INT NOT NULL,
+          Lvl_Defense INT NOT NULL,
+          Lvl_Attack INT NOT NULL,
           FOREIGN KEY (ID_Planet) REFERENCES Planet (ID_Planet),
           FOREIGN KEY (ID_Ship) REFERENCES Ship (ID_Ship),
           PRIMARY KEY (ID_Planet, ID_Ship)
 )';
-crear_Planet_has_Defense := 'CREATE TABLE Planet_has_Defense (
+crear_Planet_Defense := 'CREATE TABLE Planet_Defense (
           ID_Planet INT NOT NULL,
           ID_Defense INT NOT NULL,
           Quantity INT NOT NULL,
-          lvl INT NOT NULL,
+          Lvl_Defense INT NOT NULL,
+          Lvl_Attack INT NOT NULL,
           FOREIGN KEY (ID_Planet) REFERENCES Planet (ID_Planet),
           FOREIGN KEY (ID_Defense) REFERENCES Defense (ID_Defense),
           PRIMARY KEY (ID_Planet, ID_Defense)
@@ -117,16 +119,16 @@ if existe= 0 then
           dbms_output.put_line('Tabla Battle creada correctamente');
 end if;
 
-select count(*) into existe from tab where tname=upper('Planet_has_Ship');
+select count(*) into existe from tab where tname=upper('Planet_Ship');
 if existe= 0 then
-          execute immediate crear_Planet_has_Ship;
-          dbms_output.put_line('Tabla Planet_has_Ship creada correctamente');
+          execute immediate crear_Planet_Ship;
+          dbms_output.put_line('Tabla Planet_Ship creada correctamente');
 end if;
 
-select count(*) into existe from tab where tname=upper('Planet_has_Defense');
+select count(*) into existe from tab where tname=upper('Planet_Defense');
 if existe= 0 then
-          execute immediate crear_Planet_has_Defense;
-          dbms_output.put_line('Tabla Planet_has_Defense creada correctamente');
+          execute immediate crear_Planet_Defense;
+          dbms_output.put_line('Tabla Planet_Defense creada correctamente');
 end if;
 
 select count(*) into existe from tab where tname=upper('Enemie');

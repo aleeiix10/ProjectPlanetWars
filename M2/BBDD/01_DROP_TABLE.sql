@@ -1,8 +1,8 @@
 create or replace procedure DROP_TABLE
 is
 contador number;
-drop1 varchar(200):='drop table Planet_has_Ship';
-drop2 varchar(200):='drop table Planet_has_Defense';
+drop1 varchar(200):='drop table Planet_Ship';
+drop2 varchar(200):='drop table Planet_Defense';
 drop3 varchar(200):='drop table Defense';
 drop4 varchar(200):='drop table Ship';
 drop5 varchar(200):='drop table Planet';
@@ -10,15 +10,15 @@ drop6 varchar(200):='drop table Battle';
 drop7 varchar(200):='drop table User_PW';
 drop8 varchar(200):='drop table Enemie';
 begin
-select count(*) into contador from tab where tname=upper('Planet_has_Ship');
+select count(*) into contador from tab where tname=upper('Planet_Ship');
 if contador=1 then
 execute immediate drop1;
-dbms_output.put_line('La table Planet_has_Ship se ha eliminado correctamente');
+dbms_output.put_line('La table Planet_Ship se ha eliminado correctamente');
 end if;
-select count(*) into contador from tab where tname=upper('Planet_has_Defense');
+select count(*) into contador from tab where tname=upper('Planet_Defense');
 if contador=1 then
 execute immediate drop2;
-dbms_output.put_line('La table Planet_has_Defense se ha eliminado correctamente');
+dbms_output.put_line('La table Planet_Defense se ha eliminado correctamente');
 end if;
 select count(*) into contador from tab where tname=upper('Defense');
 if contador=1 then

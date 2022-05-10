@@ -12,8 +12,10 @@ else
     select max(id_user) into maximo from user_pw;
     if maximo is null then
         insert into user_pw values (1,usu,cumple,pass);
+        insert into enemie values (1,26000,180000,6);
     else
         insert into user_pw values (maximo+1,usu,cumple,pass);
+        insert into enemie values (1,26000,180000,6);
     end if;
     return true;
 end if;
@@ -25,5 +27,6 @@ set serveroutput on;
 declare
 guardar boolean;
 begin
-Registro('brahian','pro','16/05/2000');
+guardar:=Registro('brahian','pro','16/05/2000');
+dbms_output.put_line('so');
 end;
