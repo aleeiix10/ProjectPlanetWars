@@ -385,7 +385,7 @@ class menu_login extends JFrame{
 			panel[16].add(etiqueta[29]);
 			panel[16].add(etiqueta[28]);
 			
-		
+	
 			panel[16].setBackground(Color.black);
 			panel[17].setBackground(Color.black);
 			etiqueta[23].setText("cssswwwvw");
@@ -405,66 +405,67 @@ class menu_login extends JFrame{
 				anopos[i]=(String.valueOf(anoEm-i));
 			}
 			ano = new JComboBox(anopos);
-			String AnoStr = (String)ano.getSelectedItem();
 			String[] mespos= {"01","02","03","04","05","06","07","08","09","10","11","12"};
 			mes = new JComboBox(mespos);
-			String mesStr = (String)mes.getSelectedItem();
-			mes.addItemListener(new ItemListener() {
-				
-				@Override
-				public void itemStateChanged(ItemEvent e) {
-				if (((Integer.parseInt(AnoStr)%4==0 && Integer.parseInt(AnoStr)%100!=0) && mesStr=="02") || (Integer.parseInt(AnoStr)%400==0 && Integer.parseInt(AnoStr)%100==0 && mesStr=="02")) {
-					String[] diasV= new String[29];
-					int diaEm=1;
-					for (int i=0;i<diasV.length;i++) {
-						diasV[i]=(String.valueOf(diaEm+i));
-						
-						dia.setPreferredSize(new Dimension(45,20));
-						panel[17].add(dia);
-					}
-				}
-				else if (mesStr=="02") {
-					String[] diasNV= new String[28];
-					int diaEm=1;
-					for (int i=0;i<diasNV.length;i++) {
-						diasNV[i]=(String.valueOf(diaEm+i));
-						dia.setPreferredSize(new Dimension(45,20));
-						panel[17].add(dia);
-					}
-
-				}
-				else if (mesStr=="01" && mesStr=="03" && mesStr=="05" && mesStr=="07" && mesStr=="08" && mesStr=="10" && mesStr=="12") {
-					String[] dias31= new String[31];
-					int diaEm=1;
-					for (int i=0;i<dias31.length;i++) {
-						dias31[i]=(String.valueOf(diaEm+i));
-						dia.setPreferredSize(new Dimension(45,20));
-						panel[17].add(dia);
-					}
-				}
-				else if (mesStr=="04" && mesStr=="06" && mesStr=="09" && mesStr=="11") {
-					String[] dias30= new String[30];
-					int diaEm=1;
-					for (int i=0;i<dias30.length;i++) {
-						dias30[i]=(String.valueOf(diaEm+i));
-						dia.setPreferredSize(new Dimension(45,20));
-						panel[17].add(dia);
-					}
-				}
-				String[] dias31= new String[31];
-				int diaEm=1;
-				for (int i=0;i<dias31.length;i++) {
-					dias31[i]=(String.valueOf(diaEm+i));
-					dia.setPreferredSize(new Dimension(45,20));
-					panel[17].add(dia);
-				}
-				dia = new JComboBox(dias31);
-				}
-			});
+			String [] diasV= new String[30];
+			int diaEm=1;
+			for (int i=0;i<diasV.length;i++) {
+				diasV[i]=(String.valueOf(diaEm+i));
+			}
+			dia = new JComboBox(diasV);
 			ano.setPreferredSize(new Dimension(65,20));
 			mes.setPreferredSize(new Dimension(45,20));
 			panel[17].add(ano);
 			panel[17].add(mes);
+			dia.setPreferredSize(new Dimension(45,20));
+			panel[17].add(dia);
+			mes.addItemListener(new ItemListener() {
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					String[] diasV = null;
+					String AnoStr = (String)ano.getSelectedItem();
+					String mesStr = (String)mes.getSelectedItem();
+					if (e.getStateChange()==ItemEvent.SELECTED) {
+				if ((Integer.parseInt(AnoStr)%4==0 && Integer.parseInt(AnoStr)%100!=0 && mesStr=="02") || (Integer.parseInt(AnoStr)%400==0 && Integer.parseInt(AnoStr)%100==0 && mesStr=="02")) {
+					diasV= new String[29];
+					dia.removeAllItems();
+					int diaEm=1;
+					for (int i=0;i<diasV.length;i++) {
+						diasV[i]=(String.valueOf(diaEm+i));
+						dia.addItem(diasV[i]);
+					}
+				}
+				else if (mesStr=="02") {
+					diasV= new String[28];
+					dia.removeAllItems();
+					int diaEm=1;
+					for (int i=0;i<diasV.length;i++) {
+						diasV[i]=(String.valueOf(diaEm+i));
+						dia.addItem(diasV[i]);
+					}
+				}
+				else if (mesStr=="01" || mesStr=="03" || mesStr=="05" || mesStr=="07" || mesStr=="08" || mesStr=="10" || mesStr=="12") {
+					diasV= new String[31];
+					dia.removeAllItems();
+					int diaEm=1;
+					for (int i=0;i<diasV.length;i++) {
+						diasV[i]=(String.valueOf(diaEm+i));
+						dia.addItem(diasV[i]);
+					}
+				}
+				else if (mesStr=="04" || mesStr=="06" || mesStr=="09" || mesStr=="11") {
+					System.out.println("if 4");
+					dia.removeAllItems();
+					diasV= new String[30];
+					int diaEm=1;
+					for (int i=0;i<diasV.length;i++) {
+						diasV[i]=(String.valueOf(diaEm+i));
+						dia.addItem(diasV[i]);
+					}
+				}
+				}
+				}
+			});
 			
 			//panel[17].add(text[2]);
 			panel[14].add(panel[16]);
@@ -504,12 +505,11 @@ class menu_login extends JFrame{
 			frame.setSize(1120,682);
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
-			boton[2].addActionListener(new ActionListener() {
+			boton[0].addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					frame.setVisible(false);
-					new menu_principal();
+					/*
 					String user = text[0].getText();
 					char[] password = pass.getPassword();
 					String data = dia+"/"+mes+"/"+ano;				
@@ -519,7 +519,19 @@ class menu_login extends JFrame{
 					if (resultado == false) {
 						
 					}
+					*/
+					
 				}
+			});
+			boton[2].addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					frame.setVisible(false);
+					new menu_principal();
+					
+				}
+				
 			});
 		}
 }
