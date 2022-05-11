@@ -151,10 +151,6 @@ public class Battle {
 
 	}
 	
-	//Para generar array de pérdidas
-	public void updateResourcesLooses() {
-		System.out.println("Implementar");
-	}
 	
 	public int[] fleetResourceCost(ArrayList<MilitaryUnit>[] army) {
 		int cost_metal = 0, cost_deuter = 0;
@@ -242,13 +238,31 @@ public class Battle {
 					return i;
 				}
 			}
+			return -1;
 			
 		}
 		else {
-			
+			int [] listaProb = new int[4];
+			//for que omple la llista prob amb les probabilitats
+			for (int i=0;i<army.length; i++) {
+				listaProb[i] =(int) ((100 * (army[i].size())) / num_total);
+			}
+			int num_prob = 0;
+			for (int i=0;i<listaProb.length; i++) {
+				num_prob = num_prob + listaProb[i];
+				if (num_random <= num_prob) {
+					return i;
+				}
+			}
+			return -1;
 		}
-	}
 		
+	}
+	
+	//Para generar array de pérdidas
+	public void updateResourcesLooses() {
+		System.out.println("Implementar");
+	}
 }
 	
 
