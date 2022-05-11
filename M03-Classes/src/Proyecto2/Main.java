@@ -13,7 +13,6 @@ import java.sql.CallableStatement;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -509,16 +508,41 @@ class menu_login extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					/*
+					
 					String user = text[0].getText();
-					char[] password = pass.getPassword();
-					String data = dia+"/"+mes+"/"+ano;				
+					String password = pass.getText();
+					String data = dia.getSelectedItem()+"/"+mes.getSelectedItem()+"/"+ano.getSelectedItem();	
+					text[0].setText("");
+					pass.setText("");
+					ano.setSelectedItem("2022");
+					dia.setSelectedItem("1");
+					mes.setSelectedItem("01");
 					Conexion db=new Conexion("jdbc:oracle:thin:@192.168.40.2:1521:orcl","alumnoAMS5","alumnoAMS5");
-					//CallableStatement cst = db.prepareCall("{call GETSHIPVALUES (?,?,?,?,?,?,?,?,?,?)}");
-					boolean resultado = false;
-					if (resultado == false) {
-						
+					CallableStatement cst;
+					try {
+						cst = db.getCn().prepareCall("{? = CALL registro (?,?,?)}");
+						cst.setString(1, user);
+						cst.setString(2, password);
+						cst.setString(3, data);
+						cst.execute();
+						boolean resultado = cst.getBoolean(1);
+						System.out.println(resultado);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
+					
+					
+					
+					/*if (user.isEmpty() || password.isEmpty()){
+						new PopUpPers("One of the two fields is empty", "usuario.png",50,50);
+					}
+					
+					
+					else if (resultado == false) {
+						new PopUpPers("The user name already exists", "usuario.png",50,50);
+					}
+				
 					*/
 					
 				}
@@ -529,6 +553,7 @@ class menu_login extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					frame.setVisible(false);
 					new menu_principal();
+					
 					
 				}
 				

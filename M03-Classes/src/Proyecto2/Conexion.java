@@ -15,6 +15,9 @@ public class Conexion {
 		conectar();
 		
 	}
+	public Connection getCn() {
+		return cn;
+	}
 	public void conectar() {
 		try {
 			DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
