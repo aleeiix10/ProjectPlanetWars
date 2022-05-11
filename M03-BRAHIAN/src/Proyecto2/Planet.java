@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class Planet {
+	String planetName;
 	int technologyDefense;
 	int techonologyAttack;
 	int metal;
@@ -22,7 +23,8 @@ public class Planet {
 	Army[4] → arrayList de Missile Launcher
 	Army[5] → arrayList de Ion Cannon
 	Army[6] → arrayList de Plasma Cannon*/
-	Planet(){
+	Planet(String nombrePlaneta){
+		this.planetName = nombrePlaneta;
 		for (int i=0; i<army.length; i++) {
 			army[i] = new ArrayList <MilitaryUnit>();
 		}

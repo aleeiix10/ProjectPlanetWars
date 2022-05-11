@@ -137,7 +137,7 @@ public class Battle {
 	//team=0 indica que army se refiere a planet, team != 1 significa que se refiere a enemies 
 	public int remainderPercentageFleet (ArrayList<MilitaryUnit>[] army,int team) {
 		int num_totalUnits = 0;
-		//For que cuenta el número de enemigos y los añade a num_totalUnits
+		//For que cuenta el número de tropas restantes y los añade a num_totalUnits
 		for(int i=0; i<army.length;i++) {
 			num_totalUnits = num_totalUnits + army[i].size();
 		}
@@ -166,4 +166,89 @@ public class Battle {
 		return cost_fleet;
 	}
 	
+	public void setinitialCostFleet() {
+		int [][] lista = {fleetResourceCost(planetArmy),fleetResourceCost(enemyArmy)};
+		this.initialCostFleet = lista;
+	}
+	
+	public int getGroupAttacker(ArrayList<MilitaryUnit>[] army, int team) {
+		//genera numero random entre 0 i 100
+		int num_random = (int)(Math.random()*101);
+		
+		//Cas de Planet
+		if (team == 0) {
+			if (num_random<=Variables.CHANCE_ATTACK_PLANET_UNITS[0]) {
+				return 0;
+			}
+			else if (num_random<=Variables.CHANCE_ATTACK_PLANET_UNITS[1] + Variables.CHANCE_ATTACK_PLANET_UNITS[0]) {
+				return 1;
+			}
+			else if (num_random<=Variables.CHANCE_ATTACK_PLANET_UNITS[2] + Variables.CHANCE_ATTACK_PLANET_UNITS[1] + Variables.CHANCE_ATTACK_PLANET_UNITS[0]) {
+				return 2;
+			}
+			else if (num_random<=Variables.CHANCE_ATTACK_PLANET_UNITS[3] + Variables.CHANCE_ATTACK_PLANET_UNITS[2] + Variables.CHANCE_ATTACK_PLANET_UNITS[1] + Variables.CHANCE_ATTACK_PLANET_UNITS[0]) {
+				return 3;
+			}
+			else if (num_random<=Variables.CHANCE_ATTACK_PLANET_UNITS[4] + Variables.CHANCE_ATTACK_PLANET_UNITS[3] + Variables.CHANCE_ATTACK_PLANET_UNITS[2] + Variables.CHANCE_ATTACK_PLANET_UNITS[1] + Variables.CHANCE_ATTACK_PLANET_UNITS[0]) {
+				return 4;
+			}
+			else if (num_random<=Variables.CHANCE_ATTACK_PLANET_UNITS[5] + Variables.CHANCE_ATTACK_PLANET_UNITS[4] + Variables.CHANCE_ATTACK_PLANET_UNITS[3] + Variables.CHANCE_ATTACK_PLANET_UNITS[2] + Variables.CHANCE_ATTACK_PLANET_UNITS[1] + Variables.CHANCE_ATTACK_PLANET_UNITS[0]) {
+				return 5;
+			}
+			else {
+				return 6;
+			}
+		}
+		//Cas de Enemy
+		else {
+			if (num_random<=Variables.CHANCE_ATTACK_ENEMY_UNITS[0]) {
+				return 0;
+			}
+			else if (num_random<=Variables.CHANCE_ATTACK_ENEMY_UNITS[1] + Variables.CHANCE_ATTACK_ENEMY_UNITS[0]) {
+				return 1;
+			}
+			else if (num_random<=Variables.CHANCE_ATTACK_ENEMY_UNITS[2] + Variables.CHANCE_ATTACK_ENEMY_UNITS[1] + Variables.CHANCE_ATTACK_ENEMY_UNITS[0]) {
+				return 2;
+			}
+			else {
+				return 3;
+			}
+
+		}
+	}
+	
+	public int getGroupDefender (ArrayList<MilitaryUnit>[] army, int team) {
+		//genera numero random entre 0 i 100
+		int num_random = (int)(Math.random()*101);
+		
+		//contador de tropas totales, se guardan en num_total
+		int num_total = 0;
+		for (int i=0;i<army.length;i++) {
+			num_total = num_total + army[i].size();
+		}
+		
+		//Cas de Planet
+		if (team == 0) {
+			//llista on es guarden les probabilitats de que surtin cada tropa
+			int [] listaProb = new int[7];
+			//for que omple la llista prob amb les probabilitats
+			for (int i=0;i<army.length; i++) {
+				listaProb[i] =(int) ((100 * (army[i].size())) / num_total);
+			}
+			int num_prob = 0;
+			for (int i=0;i<listaProb.length; i++) {
+				num_prob = num_prob + listaProb[i];
+				if (num_random <= num_prob) {
+					return i;
+				}
+			}
+			
+		}
+		else {
+			
+		}
+	}
+		
 }
+	
+
