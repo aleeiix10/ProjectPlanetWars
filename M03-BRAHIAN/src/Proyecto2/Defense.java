@@ -1,10 +1,17 @@
 package Proyecto2;
 
 public abstract class Defense implements Variables,MilitaryUnit {
-	int armor;
-    int initialArmor;
-    int baseDamage;
+	private int armor;
+	private int initialArmor;
+	private int baseDamage;
+	
+	
  
+	public Defense(int initialArmor, int baseDamage) {
+		this.armor = initialArmor;
+		this.initialArmor = initialArmor;
+		this.baseDamage = baseDamage;
+	}
 	public int getArmor() {
 		return armor;
 	}

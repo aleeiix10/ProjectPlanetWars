@@ -4,10 +4,10 @@ import java.sql.*;
 import javax.swing.*;
 
 public class Conexion {
-	String user;
-	String pass;
-	String url;
-	Connection cn;
+	private String user;
+	private String pass;
+	private String url;
+	private Connection cn;
 	public Conexion(String url1, String user1, String pass1) {
 		user=user1;
 		pass=pass1;

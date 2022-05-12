@@ -2,36 +2,31 @@ package Proyecto2;
 
 public class LigthHunter extends Ship implements MilitaryUnit{
 	
-	int armadura_plus = Variables.PLUS_ARMOR_LIGTHHUNTER_BY_TECHNOLOGY;
-	int dano_plus = Variables.PLUS_ATTACK_LIGTHHUNTER_BY_TECHNOLOGY;
+	private int armadura_plus = Variables.PLUS_ARMOR_LIGTHHUNTER_BY_TECHNOLOGY;
+	private int dano_plus = Variables.PLUS_ATTACK_LIGTHHUNTER_BY_TECHNOLOGY;
 	
 	LigthHunter(int armor,int baseDamage){
-		this.baseDamage = baseDamage;
-		this.armor = armor;
-		this.initialArmor = armor;
+		super(armor, baseDamage);
 	}
 	
 	LigthHunter() {
-		this.baseDamage = Variables.BASE_DAMAGE_LIGTHHUNTER;
-		this.armor = Variables.ARMOR_LIGTHHUNTER;
-		this.initialArmor = Variables.ARMOR_LIGTHHUNTER;
+		super(Variables.ARMOR_LIGTHHUNTER, Variables.BASE_DAMAGE_LIGTHHUNTER);
 	};
 	
 	
 	@Override
 	public int attack() {
-		return this.baseDamage;
+		return getBaseDamage();
 	}
 
 	@Override
 	public void takeDamage(int receivedDamage) {
-		this.armor = this.armor - receivedDamage;
-		
+		setArmor(getActualArmor()-receivedDamage);
 	}
 
 	@Override
 	public int getActualArmor() {
-		return this.armor;
+		return getArmor();
 	}
 
 	@Override
@@ -74,7 +69,12 @@ public class LigthHunter extends Ship implements MilitaryUnit{
 
 	@Override
 	public void resetArmor() {
-		this.armor = this.initialArmor;
+		setArmor(getInitialArmor());
+	}
+
+	@Override
+	public String toString() {
+		return "Ligth Hunter";
 	}
 
 }

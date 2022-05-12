@@ -2,28 +2,26 @@ package Proyecto2;
 
 public class IonCannon extends Defense implements MilitaryUnit{
 	
-	int armadura_plus = Variables.PLUS_ARMOR_MISSILELAUNCHER_BY_TECHNOLOGY;
-	int dano_plus = Variables.PLUS_ATTACK_MISSILELAUNCHER_BY_TECHNOLOGY;
+	private int armadura_plus = Variables.PLUS_ARMOR_MISSILELAUNCHER_BY_TECHNOLOGY;
+	private int dano_plus = Variables.PLUS_ATTACK_MISSILELAUNCHER_BY_TECHNOLOGY;
 	
 	IonCannon(int armor,int baseDamage){
-		this.baseDamage = baseDamage;
-		this.armor = armor;
-		this.initialArmor = armor;
+		super(armor, baseDamage);
 	}
 
 	@Override
 	public int attack() {
-		return this.baseDamage;
+		return getBaseDamage();
 	}
 
 	@Override
 	public void takeDamage(int receivedDamage) {
-		this.armor = this.armor - receivedDamage;
+		setArmor(getArmor() - receivedDamage);
 	}
 
 	@Override
 	public int getActualArmor() {
-		return this.armor;
+		return getArmor();
 	}
 
 	@Override
@@ -66,7 +64,12 @@ public class IonCannon extends Defense implements MilitaryUnit{
 
 	@Override
 	public void resetArmor() {
-		this.armor = this.initialArmor;
+		setArmor(getInitialArmor());
+	}
+	
+	@Override
+	public String toString() {
+		return "Ion Cannon";
 	}
 	
 }

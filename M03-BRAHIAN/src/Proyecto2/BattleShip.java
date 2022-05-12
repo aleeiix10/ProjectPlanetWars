@@ -2,33 +2,30 @@ package Proyecto2;
 
 public class BattleShip extends Ship implements MilitaryUnit{
 	
-	int armadura_plus = Variables.PLUS_ARMOR_BATTLESHIP_BY_TECHNOLOGY;
-	int dano_plus = Variables.PLUS_ATTACK_BATTLESHIP_BY_TECHNOLOGY;
+	private int armadura_plus = Variables.PLUS_ARMOR_BATTLESHIP_BY_TECHNOLOGY;
+	private int dano_plus = Variables.PLUS_ATTACK_BATTLESHIP_BY_TECHNOLOGY;
 	
 	BattleShip(int armor,int baseDamage){
-		this.baseDamage = baseDamage;
-		this.armor = armor;
-		this.initialArmor = armor;
+		super(armor, baseDamage);
 	}
 	
 	BattleShip(){
-		this.baseDamage = Variables.BASE_DAMAGE_BATTLESHIP;
-		this.armor = Variables.ARMOR_BATTLESHIP;
-		this.initialArmor = Variables.ARMOR_BATTLESHIP;
+		super(Variables.ARMOR_BATTLESHIP, Variables.BASE_DAMAGE_BATTLESHIP);
 	};
+	
 	@Override
 	public int attack() {
-		return baseDamage;
+		return getBaseDamage();
 	}
 
 	@Override
 	public void takeDamage(int receivedDamage) {
-		this.armor = this.armor - receivedDamage;
+		setArmor(getArmor() - receivedDamage);;
 	}
 
 	@Override
 	public int getActualArmor() {
-		return this.armor;
+		return getArmor();
 	}
 
 	@Override
@@ -71,7 +68,11 @@ public class BattleShip extends Ship implements MilitaryUnit{
 
 	@Override
 	public void resetArmor() {
-		this.armor = this.initialArmor;
+		setArmor(getInitialArmor());;
+	}
+	@Override
+	public String toString() {
+		return "Battle Ship";
 	}
 
 }

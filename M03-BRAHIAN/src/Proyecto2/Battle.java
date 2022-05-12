@@ -3,26 +3,26 @@ package Proyecto2;
 import java.util.ArrayList;
 
 public class Battle {
-	ArrayList <MilitaryUnit> [] enemyArmy; //→ para almacenar la flota enemiga.
+	private ArrayList <MilitaryUnit> [] enemyArmy; //→ para almacenar la flota enemiga.
 	
-	ArrayList <MilitaryUnit> [] planetArmy; // para almacenar la flota de nuestro planeta
+	private ArrayList <MilitaryUnit> [] planetArmy; // para almacenar la flota de nuestro planeta
 	
-	ArrayList[][] armies; //almacenaremos nuestro ejercito en la primera fila,
+	private ArrayList[][] armies; //almacenaremos nuestro ejercito en la primera fila,
 						//y el ejercito enemigo en la segunda fila;
 
-	String battleDevelopment;
+	private String battleDevelopment;
 	
-	int[][] initialCostFleet;//el coste de metal y deuterio de los ejercitos iniciales 
+	private int[][] initialCostFleet;//el coste de metal y deuterio de los ejercitos iniciales 
 	
 	//La batalla termina si uno de los 2 tiene menos de un 20% del ejercito inicial
-	int initialNumberUnitsPlanet;
-	int initialNumberUnitsEnemy;
+	private int initialNumberUnitsPlanet;
+	private int initialNumberUnitsEnemy;
 	
-	int[] wasteMetalDeuterium; //Residuos [Metal,Deuterium], asumo que la suma del coste de matar una unidad
+	private int[] wasteMetalDeuterium; //Residuos [Metal,Deuterium], asumo que la suma del coste de matar una unidad
 	
 	//Perdidas materiales de cada ejercito para reportes
-	int[] enemyDrops; 
-	int[] planetDrops;
+	private int[] enemyDrops = new int[2]; 
+	private int[] planetDrops = new int[2];
 	
 	/*
 	   → array de dos filas y tres columnas,  resourcesLooses[0] = {perdidas metal planeta, perdidas deuterio planeta, 
@@ -32,18 +32,23 @@ public class Battle {
 	 	Para decidir el ganador, será que que tenga el numero menor en la tercera columna.
 	 	ResourcesLooses[0][2] y ResourcesLooses[1][2], que representan las pérdidas ponderadas.
 	 */
-	int[][] resourcesLooses;
+	private int[][] resourcesLooses;
 	
 	
-	int[][] initialArmies;   //Array de 2*7 que cuantifica cada tipo de unidad de los ejercitos iniciales
+	private int[][] initialArmies;   //Array de 2*7 que cuantifica cada tipo de unidad de los ejercitos iniciales
 	
-	int[] actualNumberUnitsPlanet;
-	int[] actualNumberUnitsEnemy;
+	private int[] actualNumberUnitsPlanet;
+	private int[] actualNumberUnitsEnemy;
 	//Array igual que initialArmies pero por separado y de las unidades actuales
 	
 	public Battle(ArrayList <MilitaryUnit> [] planetArmy,int metal,int deuterium,int lvl_att,int lvl_def) {
 		this.planetArmy = planetArmy;
 		this.enemyArmy = createEnemyFleet(metal, deuterium, lvl_att, lvl_def);
+		enemyDrops[0] = 0;
+		enemyDrops[1] = 0;
+		planetDrops[0] = 0;
+		planetDrops[1] = 0;
+		
 	}
 	public void setArmies(ArrayList <MilitaryUnit> [] planetArmy, ArrayList <MilitaryUnit> [] enemyArmy) {
 		ArrayList[][] armi2 = {planetArmy,enemyArmy};
@@ -58,6 +63,13 @@ public class Battle {
 		int num_random;
 		//el array enemyFleet: [arrayListLightHunter, arrayListHeavyHunter, arrayListBattleShip, arrayListArmoredShip]
 		ArrayList <MilitaryUnit> [] enemyFleet = new ArrayList[4];
+		enemyFleet[0] = new ArrayList <MilitaryUnit>();
+		enemyFleet[1] = new ArrayList <MilitaryUnit>();
+		enemyFleet[2] = new ArrayList <MilitaryUnit>();
+		enemyFleet[3] = new ArrayList <MilitaryUnit>();
+		
+		
+
 		
 		while (metal >= Variables.METAL_COST_LIGTHHUNTER && deuterium >= Variables.DEUTERIUM_COST_LIGTHHUNTER) {
 			
@@ -213,6 +225,98 @@ public class Battle {
 		}
 	}
 	
+	public boolean probWaste(int num_groupFleet) {
+		int num_random = (int)(Math.random()*101);
+		if (num_groupFleet == 0) {
+			if (Variables.CHANCE_GENERATNG_WASTE_LIGTHHUNTER >= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else if (num_groupFleet == 1) {
+			if (Variables.CHANCE_GENERATNG_WASTE_HEAVYHUNTER>= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else if (num_groupFleet == 2) {
+			if (Variables.CHANCE_GENERATNG_WASTE_BATTLESHIP>= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else if (num_groupFleet == 3) {
+			if (Variables.CHANCE_GENERATNG_WASTE_ARMOREDSHIP>= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else if (num_groupFleet == 4) {
+			if (Variables.CHANCE_GENERATNG_WASTE_MISSILELAUNCHER>= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else if (num_groupFleet == 5) {
+			if (Variables.CHANCE_GENERATNG_WASTE_IONCANNON>= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else{
+			if (Variables.CHANCE_GENERATNG_WASTE_PLASMACANNON>= num_random) {
+				return true;
+			}
+			return false;
+		}
+	}
+	
+	public boolean probDoubleAttack(int num_groupFleet) {
+		int num_random = (int)(Math.random()*101);
+		if (num_groupFleet == 0) {
+			if (Variables.CHANCE_ATTACK_AGAIN_LIGTHHUNTER >= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else if (num_groupFleet == 1) {
+			if (Variables.CHANCE_ATTACK_AGAIN_HEAVYHUNTER >= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else if (num_groupFleet == 2) {
+			if (Variables.CHANCE_ATTACK_AGAIN_BATTLESHIP >= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else if (num_groupFleet == 3) {
+			if (Variables.CHANCE_ATTACK_AGAIN_ARMOREDSHIP >= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else if (num_groupFleet == 4) {
+			if (Variables.CHANCE_ATTACK_AGAIN_MISSILELAUNCHER>= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else if (num_groupFleet == 5) {
+			if (Variables.CHANCE_ATTACK_AGAIN_IONCANNON>= num_random) {
+				return true;
+			}
+			return false;
+		}
+		else{
+			if (Variables.CHANCE_ATTACK_AGAIN_PLASMACANNON>= num_random) {
+				return true;
+			}
+			return false;
+		}
+	}
+	
 	public int getGroupDefender (ArrayList<MilitaryUnit>[] army, int team) {
 		//genera numero random entre 0 i 100
 		int num_random = (int)(Math.random()*101);
@@ -259,10 +363,191 @@ public class Battle {
 		
 	}
 	
-	//Para generar array de pérdidas
+	//Para generar array de pérdidas totales
 	public void updateResourcesLooses() {
-		System.out.println("Implementar");
+		int [] totalWaste = {this.enemyDrops[0]+this.planetDrops[0], this.enemyDrops[1]+this.planetDrops[1]};
+		this.wasteMetalDeuterium = totalWaste;
+		
+		int [] loosesEnemy = {this.enemyDrops[0], this.enemyDrops[1], (this.enemyDrops[0] + (5*this.enemyDrops[1]))};
+		int [] loosesPlanet = {this.planetDrops[0], this.planetDrops[1], (this.planetDrops[0] + (5*this.planetDrops[1]))};
+		int [][] resLooses = {loosesPlanet, loosesEnemy};
+		this.resourcesLooses = resLooses;
 	}
+	
+	public int[] getfleetDrops(int team) {
+		if (team==0) {
+			return this.planetDrops;
+		}
+		else {
+			return this.enemyDrops;
+		}
+	}
+	
+	public void setfleetDrops(int num_fleet, int team) {
+		if (team == 1) {
+			this.enemyDrops[0] = this.enemyDrops[0] + (int)(Variables.METAL_COST_UNITS[num_fleet] * 0.7);
+			this.enemyDrops[1] = this.enemyDrops[1] + (int)(Variables.DEUTERIUM_COST_UNITS[num_fleet] * 0.7);
+		}
+		else if (team == 0) {
+			this.planetDrops[0] = this.planetDrops[0] + (int)(Variables.METAL_COST_UNITS[num_fleet] * 0.7);
+			this.planetDrops[1] = this.planetDrops[1] + (int)(Variables.DEUTERIUM_COST_UNITS[num_fleet] * 0.7);
+		}
+	}
+	
+	public void setActualNumberUnits(ArrayList<MilitaryUnit>[] army, int team) {
+		
+		if (team == 0) {
+			int [] listaUnits = new int [7];
+			for(int i=0; i<army.length;i++) {
+				listaUnits[i] = army[i].size();
+			}
+			this.actualNumberUnitsPlanet = listaUnits;
+		}
+		else if(team == 1) {
+			int [] listaUnits = new int [4];
+			for(int i=0; i<army.length;i++) {
+				listaUnits[i] = army[i].size();
+			}
+			this.actualNumberUnitsEnemy = listaUnits;
+		}
+		
+	}
+	
+	public int[] getActualNumberUnits(int team) {
+		if (team == 0) {
+			return this.actualNumberUnitsPlanet;
+		}
+		else {
+			return this.actualNumberUnitsEnemy;
+		}
+	}
+	
+	
+	
+	public void LOLPlayers() {
+		setArmies(planetArmy, enemyArmy);
+		initInitialArmies();
+		setinitialCostFleet();
+		
+		
+		
+		int turno = (int)(Math.random()*2);
+		String development="START THE BATTLE\n";
+		while (remainderPercentageFleet(enemyArmy,1) >= 20 ||  remainderPercentageFleet(planetArmy,0) >= 20) {
+			//Turno de ataque de PLANET
+			if (turno == 0) {
+				
+				//grupo(LightHunter, HeavyHunter...)
+				int group_att = 0, num_attFleet;
+				while(true) {
+					group_att = getGroupAttacker(planetArmy, 0);
+					if (planetArmy[group_att].size() != 0) {
+						break;
+					}
+				}
+				
+				
+				//una vez escogido el grupo atacante, el numero de tropa
+				num_attFleet = (int)(Math.random()*planetArmy[group_att].size());
+				
+				
+				do {
+				
+				int group_def = 0;
+				while(true) {
+					group_def = getGroupDefender(enemyArmy, 1);
+					if (enemyArmy[group_def].size() != 0) {
+						break;
+					}
+				}
+				
+				
+				int num_defFleet = (int)(Math.random()*enemyArmy[group_def].size());
+				
+				//Cogemos a los objetos que pelearán como tal
+				MilitaryUnit attacker = planetArmy[group_att].get(num_attFleet);
+				MilitaryUnit defender = enemyArmy[group_def].get(num_defFleet);
+				
+				development += "Attacks Planet: "+ attacker.toString() + " attacks " + defender.toString()+"\n";
+				
+				//Se le resta el damage a su armor
+				defender.takeDamage(attacker.attack());
+				
+				development += attacker.toString()+" generates the damage = " + attacker.attack()+"\n";
+				development += defender.toString()+" stays with armor = "+ defender.getActualArmor()+"\n";
+				
+				//Caso en el que elimine al defensor
+				if (defender.getActualArmor()<=0) {
+					development += defender.toString() + " was defeated\n";
+					//Caso que se de la probabilidad de que se creen residuos
+					if (probWaste(group_def)) {
+						setfleetDrops(group_def, 1);
+					}
+					enemyArmy[group_def].remove(num_defFleet);
+				}
+				}while(probDoubleAttack(group_att));
+				turno += 1;
+			}
+			//Turno de ataque de ENEMY
+			else if(turno == 1){
+				
+				//grupo(LightHunter, HeavyHunter...)
+				int group_att = getGroupAttacker(enemyArmy, 1);
+				
+				
+				//una vez escogido el grupo atacante, el numero de tropa
+				int num_attFleet = (int)(Math.random()*enemyArmy[group_att].size());
+				
+				do {
+				int group_def = getGroupDefender(planetArmy, 0);
+				int num_defFleet = (int)(Math.random()*planetArmy[group_def].size());
+				
+				//Cogemos a los objetos que pelearán como tal
+				MilitaryUnit attacker = enemyArmy[group_att].get(num_attFleet);
+				MilitaryUnit defender = planetArmy[group_def].get(num_defFleet);
+				
+				development += "Attacks Enemy Fleet: "+ attacker.toString() + " attacks " + defender.toString()+"\n";
+				
+				//Se le resta el damage a su armor
+				defender.takeDamage(attacker.attack());
+				
+				development += attacker.toString()+" generates the damage = " + attacker.attack()+"\n";
+				development += defender.toString()+" stays with armor = "+ defender.getActualArmor()+"\n";
+				
+				//Caso en el que elimine al defensor
+				if (defender.getActualArmor()<=0) {
+					development += defender.toString() + " was defeated\n";
+					//Caso que se de la probabilidad de que se creen residuos
+					if (probWaste(group_def)) {
+						setfleetDrops(group_def, 0);
+					}
+					planetArmy[group_def].remove(num_defFleet);
+				}
+				}while(probDoubleAttack(group_att));
+				turno -= 1;
+			}
+			development += ("\n*******************CHANGE ATTACKER********************\n");
+		}
+		//Rellena las listas wasteMetalDeuterium y resourceLooses
+		updateResourcesLooses();
+		development = development.substring(0,development.length()-56);
+		
+		//Significa que gana Planet
+		if (resourcesLooses[0][2] < resourcesLooses[1][2]) {
+			development += "\n                     PLANET WINS";
+		}
+		else {
+			development += "\n                     ENEMY WINS";
+		}
+		
+		this.battleDevelopment = development;
+	}
+	
+	public String getDevelopment() {
+		return this.battleDevelopment;
+	}
+	
+	
 }
 	
 

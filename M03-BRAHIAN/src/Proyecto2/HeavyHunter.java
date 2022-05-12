@@ -2,33 +2,30 @@ package Proyecto2;
 
 public class HeavyHunter extends Ship implements MilitaryUnit{
 	
-	int armadura_plus = Variables.PLUS_ARMOR_HEAVYHUNTER_BY_TECHNOLOGY;
-	int dano_plus = Variables.PLUS_ATTACK_HEAVYHUNTER_BY_TECHNOLOGY;
+	private int armadura_plus = Variables.PLUS_ARMOR_HEAVYHUNTER_BY_TECHNOLOGY;
+	private int dano_plus = Variables.PLUS_ATTACK_HEAVYHUNTER_BY_TECHNOLOGY;
 	
 	HeavyHunter(int armor,int baseDamage){
-		this.baseDamage = baseDamage;
-		this.armor = armor;
-		this.initialArmor = armor;
+		super(armor,baseDamage);
 	}
 	
 	HeavyHunter(){
-		this.baseDamage = Variables.BASE_DAMAGE_HEAVYHUNTER;
-		this.armor = Variables.ARMOR_HEAVYHUNTER;
-		this.initialArmor = Variables.ARMOR_HEAVYHUNTER;
+		super(Variables.ARMOR_HEAVYHUNTER, Variables.BASE_DAMAGE_HEAVYHUNTER);
 	};
+	
 	@Override
 	public int attack() {
-		return baseDamage;
+		return getBaseDamage();
 	}
 
 	@Override
 	public void takeDamage(int receivedDamage) {
-		this.armor = this.armor - receivedDamage;
+		setArmor(getArmor()-receivedDamage);
 	}
 
 	@Override
 	public int getActualArmor() {
-		return this.armor;
+		return getArmor();
 	}
 
 	@Override
@@ -71,7 +68,12 @@ public class HeavyHunter extends Ship implements MilitaryUnit{
 
 	@Override
 	public void resetArmor() {
-		this.armor = this.initialArmor;
+		setArmor(getInitialArmor());;
+	}
+	
+	@Override
+	public String toString() {
+		return "Heavy Hunter";
 	}
 
 }

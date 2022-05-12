@@ -1,9 +1,18 @@
 package Proyecto2;
 
 public abstract class Ship implements Variables,MilitaryUnit{
-	int armor;
-	int initialArmor;
-	int baseDamage;
+	private int armor;
+	private int initialArmor;
+	private int baseDamage;
+	
+	
+	
+	public Ship(int initialArmor, int baseDamage) {
+		this.armor = initialArmor;
+		this.initialArmor = initialArmor;
+		this.baseDamage = baseDamage;
+	}
+	Ship(){}
 	
 	public int getArmor() {
 		return armor;

@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class Planet {
-	String planetName;
-	int technologyDefense;
-	int techonologyAttack;
-	int metal;
-	int deuterium;
-	int upgradeDefenseTechologyDeuteriumCost;
-	int upgradeAttackTechologyDeuteriumCost;
-	ArrayList <MilitaryUnit> [] army = new ArrayList[7];
+	private String planetName;
+	private int technologyDefense;
+	private int techonologyAttack;
+	private int metal;
+	private int deuterium;
+	private int upgradeDefenseTechologyDeuteriumCost;
+	private int upgradeAttackTechologyDeuteriumCost;
+	private ArrayList <MilitaryUnit> [] army = new ArrayList[7];
 	/*Army[0] → arrayList de Ligth Hunter
 	Army[1] → arrayList de Heavy Hunter
 	Army[2] → arrayList de Battle Ship 

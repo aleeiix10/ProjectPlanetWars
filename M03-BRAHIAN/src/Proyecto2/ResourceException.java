@@ -18,12 +18,12 @@ public class ResourceException extends Exception{
 	
 }
 class PopUpPers extends JOptionPane{
-	JFrame a = new JFrame();
-	JButton boton=new JButton();
-    UIManager UI=new UIManager();
-   
-    Toolkit pantalla= Toolkit.getDefaultToolkit();
-    Image imagen= pantalla.getImage("iconoTotal.png");
+	private JFrame a = new JFrame();
+	private JButton boton=new JButton();
+	private  UIManager UI=new UIManager();
+	private  Toolkit pantalla= Toolkit.getDefaultToolkit();
+	private  Image imagen= pantalla.getImage("iconoTotal.png");
+	
     PopUpPers(String msg,String ruta,int anchura,int altura){
 		Image img = new ImageIcon(ruta).getImage();
 		Image newimg = img.getScaledInstance(anchura, altura,  java.awt.Image.SCALE_SMOOTH);

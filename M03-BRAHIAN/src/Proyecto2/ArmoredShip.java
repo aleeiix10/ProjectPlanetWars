@@ -2,33 +2,29 @@ package Proyecto2;
 
 public class ArmoredShip extends Ship implements MilitaryUnit{
 	
-	int armadura_plus = Variables.PLUS_ARMOR_ARMOREDSHIP_BY_TECHNOLOGY;
-	int dano_plus = Variables.PLUS_ATTACK_ARMOREDSHIP_BY_TECHNOLOGY;
+	private int armadura_plus = Variables.PLUS_ARMOR_ARMOREDSHIP_BY_TECHNOLOGY;
+	private int dano_plus = Variables.PLUS_ATTACK_ARMOREDSHIP_BY_TECHNOLOGY;
 	
 	ArmoredShip(int armor,int baseDamage){
-		this.baseDamage = baseDamage;
-		this.armor = armor;
-		this.initialArmor = armor;
+		super(armor, baseDamage);
 	}
 	
 	ArmoredShip(){
-		this.baseDamage = Variables.BASE_DAMAGE_ARMOREDSHIP;
-		this.armor = Variables.ARMOR_ARMOREDSHIP;
-		this.initialArmor = Variables.ARMOR_ARMOREDSHIP;
+		super(Variables.ARMOR_ARMOREDSHIP, Variables.BASE_DAMAGE_ARMOREDSHIP);
 	};
 	@Override
 	public int attack() {
-		return this.baseDamage;
+		return getBaseDamage();
 	}
 
 	@Override
 	public void takeDamage(int receivedDamage) {
-		this.armor = this.armor - receivedDamage; 
+		setArmor(getArmor() - receivedDamage);; 
 	}
 
 	@Override
 	public int getActualArmor() {
-		return this.armor;
+		return getArmor();
 	}
 
 	@Override
@@ -71,7 +67,11 @@ public class ArmoredShip extends Ship implements MilitaryUnit{
 
 	@Override
 	public void resetArmor() {
-		this.armor = this.initialArmor;
+		setArmor(getInitialArmor());
+	}
+	@Override
+	public String toString() {
+		return "Armored Ship";
 	}
 
 }
