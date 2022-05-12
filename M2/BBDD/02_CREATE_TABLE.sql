@@ -21,7 +21,7 @@ crear_Planet :='CREATE TABLE Planet (
           ID_Planet INT NOT NULL  PRIMARY KEY,
           Planet_Name VARCHAR(45) NOT NULL UNIQUE,
           Technology_Attack INT NOT NULL,
-          Techonology_Defense INT NOT NULL,
+          Technology_Defense INT NOT NULL,
           Deuterium_Quantity INT NOT NULL,
           Crystal_Quantity INT NOT NULL,
           Metal_Quantity INT NOT NULL,
@@ -57,6 +57,8 @@ crear_Battle :='CREATE TABLE Battle (
           ID_User INT NOT NULL,
           Start_Unities INT NOT NULL,
           End_Unities INT NOT NULL,
+          Start_Unities_Enemie INT NOT NULL,
+          End_Unities_Enemie INT NOT NULL,
           FOREIGN KEY (ID_User) REFERENCES User_PW (ID_User)
 )';
 crear_Planet_Ship := 'CREATE TABLE Planet_Ship (

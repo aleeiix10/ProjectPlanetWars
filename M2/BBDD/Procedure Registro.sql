@@ -1,5 +1,4 @@
-create or replace function Registro(usu in varchar2,pass in varchar2, cumple in date)
-return boolean
+create or replace procedure Registro(usu in varchar2,pass in varchar2, cumple in varchar2,boleano in out number)
 is
 cont number;
 maximo number;
@@ -15,18 +14,17 @@ else
         insert into enemie values (1,26000,180000,6);
     else
         insert into user_pw values (maximo+1,usu,cumple,pass);
-        insert into enemie values (1,26000,180000,6);
+        insert into enemie values (maximo+1,26000,180000,6);
     end if;
-    return true;
+    boleano:=1;
 end if;
 exception
-when existe then return false;
+when existe then boleano:=0;
 end;
 /
 set serveroutput on;
 declare
-guardar boolean;
+dale number;
 begin
-guardar:=Registro('brahian','pro','16/05/2000');
-dbms_output.put_line('so');
+Registro('brahian','pro','16/05/2000',dale);
 end;

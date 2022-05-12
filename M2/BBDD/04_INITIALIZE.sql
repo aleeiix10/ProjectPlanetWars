@@ -4,12 +4,12 @@ existe number;
 contador int := 0;
 existe_excep EXCEPTION;
 begin
-select count(*) into existe from tab where tname=upper('Planet_has_Ship');
+select count(*) into existe from tab where tname=upper('Planet_Ship');
 if existe= 1 then
           contador := contador +1;
           existe := 0;
 end if;
-select count(*) into existe from tab where tname=upper('Planet_has_Defense');
+select count(*) into existe from tab where tname=upper('Planet_Defense');
 if existe= 1 then
           contador := contador +1;
           existe := 0;
