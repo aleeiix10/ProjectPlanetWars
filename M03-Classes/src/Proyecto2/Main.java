@@ -16,8 +16,11 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Date;
 
 import javax.swing.*;
 
@@ -428,7 +431,7 @@ class menu_login extends JFrame{
 				if ((Integer.parseInt(AnoStr)%4==0 && Integer.parseInt(AnoStr)%100!=0 && mesStr=="02") || (Integer.parseInt(AnoStr)%400==0 && Integer.parseInt(AnoStr)%100==0 && mesStr=="02")) {
 					diasV= new String[29];
 					dia.removeAllItems();
-					int diaEm=1;
+					int diaEm=01;
 					for (int i=0;i<diasV.length;i++) {
 						diasV[i]=(String.valueOf(diaEm+i));
 						dia.addItem(diasV[i]);
@@ -437,7 +440,7 @@ class menu_login extends JFrame{
 				else if (mesStr=="02") {
 					diasV= new String[28];
 					dia.removeAllItems();
-					int diaEm=1;
+					int diaEm=01;
 					for (int i=0;i<diasV.length;i++) {
 						diasV[i]=(String.valueOf(diaEm+i));
 						dia.addItem(diasV[i]);
@@ -446,7 +449,7 @@ class menu_login extends JFrame{
 				else if (mesStr=="01" || mesStr=="03" || mesStr=="05" || mesStr=="07" || mesStr=="08" || mesStr=="10" || mesStr=="12") {
 					diasV= new String[31];
 					dia.removeAllItems();
-					int diaEm=1;
+					int diaEm=01;
 					for (int i=0;i<diasV.length;i++) {
 						diasV[i]=(String.valueOf(diaEm+i));
 						dia.addItem(diasV[i]);
@@ -456,7 +459,7 @@ class menu_login extends JFrame{
 					System.out.println("if 4");
 					dia.removeAllItems();
 					diasV= new String[30];
-					int diaEm=1;
+					int diaEm=01;
 					for (int i=0;i<diasV.length;i++) {
 						diasV[i]=(String.valueOf(diaEm+i));
 						dia.addItem(diasV[i]);
@@ -465,7 +468,54 @@ class menu_login extends JFrame{
 				}
 				}
 			});
-			
+
+			ano.addItemListener(new ItemListener() {
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					String[] diasV = null;
+					String AnoStr = (String)ano.getSelectedItem();
+					String mesStr = (String)mes.getSelectedItem();
+					if (e.getStateChange()==ItemEvent.SELECTED) {
+				if ((Integer.parseInt(AnoStr)%4==0 && Integer.parseInt(AnoStr)%100!=0 && mesStr=="02") || (Integer.parseInt(AnoStr)%400==0 && Integer.parseInt(AnoStr)%100==0 && mesStr=="02")) {
+					diasV= new String[29];
+					dia.removeAllItems();
+					int diaEm=01;
+					for (int i=0;i<diasV.length;i++) {
+						diasV[i]=(String.valueOf(diaEm+i));
+						dia.addItem(diasV[i]);
+					}
+				}
+				else if (mesStr=="02") {
+					diasV= new String[28];
+					dia.removeAllItems();
+					int diaEm=01;
+					for (int i=0;i<diasV.length;i++) {
+						diasV[i]=(String.valueOf(diaEm+i));
+						dia.addItem(diasV[i]);
+					}
+				}
+				else if (mesStr=="01" || mesStr=="03" || mesStr=="05" || mesStr=="07" || mesStr=="08" || mesStr=="10" || mesStr=="12") {
+					diasV= new String[31];
+					dia.removeAllItems();
+					int diaEm=01;
+					for (int i=0;i<diasV.length;i++) {
+						diasV[i]=(String.valueOf(diaEm+i));
+						dia.addItem(diasV[i]);
+					}
+				}
+				else if (mesStr=="04" || mesStr=="06" || mesStr=="09" || mesStr=="11") {
+					System.out.println("if 4");
+					dia.removeAllItems();
+					diasV= new String[30];
+					int diaEm=01;
+					for (int i=0;i<diasV.length;i++) {
+						diasV[i]=(String.valueOf(diaEm+i));
+						dia.addItem(diasV[i]);
+					}
+				}
+				}
+				}
+			});
 			//panel[17].add(text[2]);
 			panel[14].add(panel[16]);
 			panel[14].add(panel[17]);
@@ -508,7 +558,6 @@ class menu_login extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
 					String user = text[0].getText();
 					String password = pass.getText();
 					String data = dia.getSelectedItem()+"/"+mes.getSelectedItem()+"/"+ano.getSelectedItem();	
@@ -520,41 +569,36 @@ class menu_login extends JFrame{
 					Conexion db=new Conexion("jdbc:oracle:thin:@192.168.40.2:1521:orcl","alumnoAMS5","alumnoAMS5");
 					CallableStatement cst;
 					try {
-						cst = db.getCn().prepareCall("{? = CALL registro (?,?,?)}");
+						if (user.isEmpty() || password.isEmpty()){
+							new PopUpPers("One of the two fields is empty","ERROR", "usuario.png",50,50);
+						}
+						else {
+						cst = db.getCn().prepareCall("{CALL registro (?,?,?,?)}");
 						cst.setString(1, user);
 						cst.setString(2, password);
 						cst.setString(3, data);
+						cst.registerOutParameter(4, java.sql.Types.INTEGER);
 						cst.execute();
-						boolean resultado = cst.getBoolean(1);
+						Integer resultado = cst.getInt(4);
 						System.out.println(resultado);
+						if (resultado == 0) {
+								new PopUpPers("The user name already exists","ERROR","usuario.png",50,50);
+						}
+						else {
+								new PopUpPers("User added succesfully","USER","usuario.png",50,50);
+							}
+						}
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
-					
-					
-					/*if (user.isEmpty() || password.isEmpty()){
-						new PopUpPers("One of the two fields is empty", "usuario.png",50,50);
-					}
-					
-					
-					else if (resultado == false) {
-						new PopUpPers("The user name already exists", "usuario.png",50,50);
-					}
-				
-					*/
-					
 				}
 			});
 			boton[2].addActionListener(new ActionListener() {
-				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					frame.setVisible(false);
 					new menu_principal();
-					
-					
 				}
 				
 			});
