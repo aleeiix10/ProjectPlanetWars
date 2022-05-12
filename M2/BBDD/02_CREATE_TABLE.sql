@@ -9,6 +9,8 @@ crear_Battle varchar2(600);
 crear_Planet_Ship varchar2(600);
 crear_Planet_Defense varchar2(600);
 crear_Enemie varchar2(600);
+crear_Attack_Unities varchar2(600);
+crear_Defense_Unities varchar2(600);
 begin
 
 crear_User_PW := 'CREATE TABLE  User_PW (
@@ -55,10 +57,18 @@ crear_Defense :='CREATE TABLE Defense (
 crear_Battle :='CREATE TABLE Battle (
           ID_Battle INT NOT NULL PRIMARY KEY,
           ID_User INT NOT NULL,
-          Start_Unities INT NOT NULL,
-          End_Unities INT NOT NULL,
-          Start_Unities_Enemie INT NOT NULL,
-          End_Unities_Enemie INT NOT NULL,
+          CAP_Metal INT NOT NULL,
+          CAP_Deuterium INT NOT NULL,
+          CAE_Metal INT NOT NULL,
+          CAE_Deuterium INT NOT NULL,
+          Waste_Metal INT NOT NULL,
+          Waste_Deuterium INT NOT NULL,
+          LAP_Metal INT NOT NULL,
+          LAP_Deuterium INT NOT NULL,
+          LAP_Weighted INT NOT NULL,
+          LAE_Metal INT NOT NULL,
+          LAE_Deuterium INT NOT NULL,
+          LAE_Weighted INT NOT NULL,
           FOREIGN KEY (ID_User) REFERENCES User_PW (ID_User)
 )';
 crear_Planet_Ship := 'CREATE TABLE Planet_Ship (
@@ -87,7 +97,23 @@ crear_Enemie := 'CREATE TABLE  Enemie (
           Metal INT NOT NULL,
           Fleet INT NOT NULL,
           FOREIGN KEY (ID_User) REFERENCES User_PW (ID_User)
-          
+)';
+crear_Attack_Unities := 'CREATE TABLE  Attack_Unities (
+        ID_Battle INT NOT NULL PRIMARY KEY,
+        ID_Ship INT NOT NULL,
+        Start_Unities INT NOT NULL,
+        End_Unities INT NOT NULL,
+        Team VARCHAR(45) NOT NULL,
+        FOREIGN KEY (ID_Battle) REFERENCES Battle (ID_Battle),
+        FOREIGN KEY (ID_Ship) REFERENCES Ship (ID_Ship)
+)';
+crear_Defense_Unities := 'CREATE TABLE  Defense_Unities (
+        ID_Battle INT NOT NULL PRIMARY KEY,
+        ID_Defense INT NOT NULL,
+        Start_Unities INT NOT NULL,
+        End_Unities INT NOT NULL,
+        FOREIGN KEY (ID_Battle) REFERENCES Battle (ID_Battle),
+        FOREIGN KEY (ID_Defense) REFERENCES Defense (ID_Defense)
 )';
           
           
@@ -137,6 +163,18 @@ select count(*) into existe from tab where tname=upper('Enemie');
 if existe= 0 then
           execute immediate crear_Enemie;
           dbms_output.put_line('Tabla Enemie creada correctamente');
+end if;
+
+select count(*) into existe from tab where tname=upper('Attack_Unities');
+if existe= 0 then
+          execute immediate crear_Attack_Unities;
+          dbms_output.put_line('Tabla Attack_Unities creada correctamente');
+end if;
+
+select count(*) into existe from tab where tname=upper('Defense_Unities');
+if existe= 0 then
+          execute immediate crear_Defense_Unities;
+          dbms_output.put_line('Tabla Defense_Unities creada correctamente');
 end if;
 
 dbms_output.put_line('');
