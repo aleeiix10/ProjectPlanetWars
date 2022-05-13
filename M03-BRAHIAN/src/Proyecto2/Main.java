@@ -15,11 +15,8 @@ public class Main {
 			a.newLigthHunter(3);
 			a.newHeavyHunter(2);
 			a.newBattleShip(2);
-			a.printStats();
 			
-			Battle batalla = new Battle(a.getArmy(),Variables.METAL_BASE_ENEMY_ARMY, Variables.DEUTERIUM_BASE_ENEMY_ARMY,2,1);
-			batalla.LOLPlayers();
-			System.out.println(batalla.getDevelopment());
+			new Build(a);
 			
 			//a.newBattleShip(1);
 			//throw new ResourceException("You don't have the resources");

@@ -148,7 +148,7 @@ public class Planet {
 				for (int i=0; i<n;i++) {
 					army[0].add(new LigthHunter(final_armor, final_dmg));
 				}
-				new PopUpPers("LightHunters added succesfully","SOLDIER.png",60,50);
+				new PopUpPers("LightHunters added succesfully","","SOLDIER.png",60,50);
 			}
 		}
 		
@@ -195,7 +195,7 @@ public class Planet {
 				for (int i=0; i<n;i++) {
 					army[1].add(new HeavyHunter(final_armor, final_dmg));
 				}
-				new PopUpPers("HeavyHunter added succesfully","heavyHunter.png",60,50);
+				new PopUpPers("HeavyHunter added succesfully","","heavyHunter.png",60,50);
 			}
 		}
 		
@@ -242,7 +242,7 @@ public class Planet {
 				for (int i=0; i<n;i++) {
 					army[2].add(new BattleShip(final_armor, final_dmg));
 				}
-				new PopUpPers("BattleShip added succesfully","BattleShip.png",70,60);
+				new PopUpPers("BattleShip added succesfully","","BattleShip.png",70,60);
 			}
 		}
 		
@@ -289,7 +289,7 @@ public class Planet {
 				for (int i=0; i<n;i++) {
 					army[3].add(new ArmoredShip(final_armor, final_dmg));
 				}
-				new PopUpPers("ArmoredShip added succesfully","BattleShip.png",70,60);
+				new PopUpPers("ArmoredShip added succesfully","","BattleShip.png",70,60);
 			}
 		}
 		
@@ -337,7 +337,7 @@ public class Planet {
 				for (int i=0; i<n;i++) {
 					army[4].add(new MissileLauncher(final_armor, final_dmg));
 				}
-				new PopUpPers("MissileLauncher added succesfully","missile.png",120,80);
+				new PopUpPers("MissileLauncher added succesfully","","missile.png",120,80);
 			}
 		}
 		
@@ -384,7 +384,7 @@ public class Planet {
 				for (int i=0; i<n;i++) {
 					army[5].add(new IonCannon(final_armor, final_dmg));
 				}
-				new PopUpPers("IonCannon added succesfully","ioncannon.png",70,60);
+				new PopUpPers("IonCannon added succesfully","","ioncannon.png",70,60);
 			}
 		}
 		
@@ -431,7 +431,7 @@ public class Planet {
 				for (int i=0; i<n;i++) {
 					army[6].add(new PlasmaCannon(final_armor, final_dmg));
 				}
-				new PopUpPers("PlasmaCannon added succesfully","PlasmaCannon.png",90,60);
+				new PopUpPers("PlasmaCannon added succesfully","","PlasmaCannon.png",90,60);
 			}
 		}
 		
@@ -608,7 +608,5 @@ public class Planet {
 		mostrarDatos.setLocationRelativeTo(null);
 		mostrarDatos.setVisible(true);
 		mostrarDatos.setResizable(false);
-		
-		
 	}
 }

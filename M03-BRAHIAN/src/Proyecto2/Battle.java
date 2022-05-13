@@ -439,11 +439,14 @@ public class Battle {
 				
 				//grupo(LightHunter, HeavyHunter...)
 				int group_att = 0, num_attFleet;
+				
+				//Comprueba que el grupo atacante tiene miembros, en caso negativo escoge otro grupo hasta encontrarlo
 				while(true) {
 					group_att = getGroupAttacker(planetArmy, 0);
 					if (planetArmy[group_att].size() != 0) {
 						break;
 					}
+					
 				}
 				
 				
@@ -492,37 +495,52 @@ public class Battle {
 			else if(turno == 1){
 				
 				//grupo(LightHunter, HeavyHunter...)
-				int group_att = getGroupAttacker(enemyArmy, 1);
+				int group_att = 0, num_attFleet;
+				
+				//Comprueba que el grupo atacante tiene miembros, en caso negativo escoge otro grupo hasta encontrarlo
+				while(true) {
+					group_att = getGroupAttacker(enemyArmy, 1);
+					if (enemyArmy[group_att].size() != 0) {
+						break;
+					}
+					
+				}
 				
 				
 				//una vez escogido el grupo atacante, el numero de tropa
-				int num_attFleet = (int)(Math.random()*enemyArmy[group_att].size());
+				num_attFleet = (int)(Math.random()*enemyArmy[group_att].size());
 				
 				do {
-				int group_def = getGroupDefender(planetArmy, 0);
-				int num_defFleet = (int)(Math.random()*planetArmy[group_def].size());
-				
-				//Cogemos a los objetos que pelearán como tal
-				MilitaryUnit attacker = enemyArmy[group_att].get(num_attFleet);
-				MilitaryUnit defender = planetArmy[group_def].get(num_defFleet);
-				
-				development += "Attacks Enemy Fleet: "+ attacker.toString() + " attacks " + defender.toString()+"\n";
-				
-				//Se le resta el damage a su armor
-				defender.takeDamage(attacker.attack());
-				
-				development += attacker.toString()+" generates the damage = " + attacker.attack()+"\n";
-				development += defender.toString()+" stays with armor = "+ defender.getActualArmor()+"\n";
-				
-				//Caso en el que elimine al defensor
-				if (defender.getActualArmor()<=0) {
-					development += defender.toString() + " was defeated\n";
-					//Caso que se de la probabilidad de que se creen residuos
-					if (probWaste(group_def)) {
-						setfleetDrops(group_def, 0);
+					int group_def = 0;
+					while(true) {
+						group_def = getGroupDefender(planetArmy, 0);
+						if (planetArmy[group_def].size() != 0) {
+							break;
+						}
 					}
-					planetArmy[group_def].remove(num_defFleet);
-				}
+					int num_defFleet = (int)(Math.random()*planetArmy[group_def].size());
+					
+					//Cogemos a los objetos que pelearán como tal
+					MilitaryUnit attacker = enemyArmy[group_att].get(num_attFleet);
+					MilitaryUnit defender = planetArmy[group_def].get(num_defFleet);
+					
+					development += "Attacks Enemy Fleet: "+ attacker.toString() + " attacks " + defender.toString()+"\n";
+					
+					//Se le resta el damage a su armor
+					defender.takeDamage(attacker.attack());
+					
+					development += attacker.toString()+" generates the damage = " + attacker.attack()+"\n";
+					development += defender.toString()+" stays with armor = "+ defender.getActualArmor()+"\n";
+					
+					//Caso en el que elimine al defensor
+					if (defender.getActualArmor()<=0) {
+						development += defender.toString() + " was defeated\n";
+						//Caso que se de la probabilidad de que se creen residuos
+						if (probWaste(group_def)) {
+							setfleetDrops(group_def, 0);
+						}
+						planetArmy[group_def].remove(num_defFleet);
+					}
 				}while(probDoubleAttack(group_att));
 				turno -= 1;
 			}
