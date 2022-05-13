@@ -9,6 +9,8 @@ drop5 varchar(200):='drop table Planet';
 drop6 varchar(200):='drop table Battle';
 drop7 varchar(200):='drop table User_PW';
 drop8 varchar(200):='drop table Enemie';
+drop9 varchar(200):='drop table Attack_Unities';
+drop10 varchar(200):='drop table Defense_Unities';
 begin
 select count(*) into contador from tab where tname=upper('Planet_Ship');
 if contador=1 then
@@ -20,6 +22,21 @@ if contador=1 then
 execute immediate drop2;
 dbms_output.put_line('La table Planet_Defense se ha eliminado correctamente');
 end if;
+select count(*) into contador from tab where tname=upper('Defense_Unities');
+if contador=1 then
+execute immediate drop10;
+dbms_output.put_line('La table Defense_Unities se ha eliminado correctamente');
+end if;
+
+select count(*) into contador from tab where tname=upper('Attack_Unities');
+if contador=1 then
+execute immediate drop9;
+dbms_output.put_line('La table Attack_Unities se ha eliminado correctamente');
+end if;
+
+
+
+
 select count(*) into contador from tab where tname=upper('Defense');
 if contador=1 then
 execute immediate drop3;
@@ -50,6 +67,7 @@ if contador=1 then
 execute immediate drop7;
 dbms_output.put_line('La table User_PW se ha eliminado correctamente');
 end if;
+
 dbms_output.put_line('');
 end;
 
