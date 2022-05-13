@@ -5,7 +5,7 @@ crear_User_PW varchar2(600);
 crear_Planet varchar2(600);
 crear_Ship varchar2(600);
 crear_Defense varchar2(600);
-crear_Battle varchar2(600);
+crear_Battle varchar2(1000);
 crear_Planet_Ship varchar2(600);
 crear_Planet_Defense varchar2(600);
 crear_Enemie varchar2(600);
@@ -69,6 +69,10 @@ crear_Battle :='CREATE TABLE Battle (
           LAE_Metal INT NOT NULL,
           LAE_Deuterium INT NOT NULL,
           LAE_Weighted INT NOT NULL,
+          Battle_Development1 varchar2(3999) NOT NULL,
+          Battle_Development2 varchar2(3999) NOT NULL,
+          Battle_Development3 varchar2(3999) NOT NULL,
+          Battle_Development4 varchar2(3999) NOT NULL,
           FOREIGN KEY (ID_User) REFERENCES User_PW (ID_User)
 )';
 crear_Planet_Ship := 'CREATE TABLE Planet_Ship (
@@ -188,8 +192,6 @@ EXCEPTION
                     DBMS_OUTPUT.PUT_LINE('ERROR --> hay un error aritm�tico o de conversi�n');
           WHEN PROGRAM_ERROR THEN
                     DBMS_OUTPUT.PUT_LINE('ERROR --> hay un problema interno en la ejecuci�n del programa');
-          WHEN OTHERS THEN
-                    DBMS_OUTPUT.PUT_LINE('ERROR -->HA HABIDO UN ERROR ');
 end;
 
 /
@@ -207,6 +209,5 @@ EXCEPTION
                     DBMS_OUTPUT.PUT_LINE('ERROR --> hay un error aritm�tico o de conversi�n');
           WHEN PROGRAM_ERROR THEN
                     DBMS_OUTPUT.PUT_LINE('ERROR --> hay un problema interno en la ejecuci�n del programa');
-          WHEN OTHERS THEN
-                    DBMS_OUTPUT.PUT_LINE('ERROR -->HA HABIDO UN ERROR ');
+
 end;
