@@ -73,10 +73,11 @@ class PopUpRegister extends JOptionPane{
 	private JFrame a = new JFrame();
 	private JButton botones[] = new JButton[2];
     private UIManager UI=new UIManager();
-   
+    private JFrame b;
     Toolkit pantalla= Toolkit.getDefaultToolkit();
     Image imagen= pantalla.getImage("iconoTotal.png");
-    PopUpRegister(String msg,String ruta,int anchura,int altura){
+    PopUpRegister(String msg,String ruta,int anchura,int altura,JFrame b){
+    	this.b =b;
 		Image img = new ImageIcon(ruta).getImage();
 		Image newimg = img.getScaledInstance(anchura, altura,  java.awt.Image.SCALE_SMOOTH);
 		ImageIcon imageIcon = new ImageIcon(newimg);
@@ -100,6 +101,7 @@ class PopUpRegister extends JOptionPane{
 	    botones[1].addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				b.dispose();
 				a.dispose();
 				new menu_register();
 			}
