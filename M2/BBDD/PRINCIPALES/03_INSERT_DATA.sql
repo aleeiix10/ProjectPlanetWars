@@ -9,6 +9,12 @@ execute immediate ' insert into Defense values (1,''Missile Launcher'',2000,0,0,
 execute immediate ' insert into Defense values (2,''Ion Cannon'',4000,0,500,1200,1200,250,12,25)';
 execute immediate ' insert into Defense values (3,''Plasma Cannon'',50000,0,5000,7000,7000,2000,30,50)';
 dbms_output.put_line('Se ha a�adido correctamente la informacion en las tablas SHIP y DEFENSE');
+exception
+when no_data_found then dbms_output.put_line('error --> no datos');
+when too_many_rows then dbms_output.put_line('error --> devuelve mas de una fila');
+when value_error then dbms_output.put_line('error --> hay un error aritmetico o de conversion');
+when program_error then dbms_output.put_line('error --> hay un problema interno en la ejecucion del programa');
+when others then dbms_output.put_line('error -->ha habido un error ');
 end;
 
 /

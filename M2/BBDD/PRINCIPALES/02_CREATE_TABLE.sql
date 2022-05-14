@@ -103,7 +103,7 @@ crear_Enemie := 'CREATE TABLE  Enemie (
           FOREIGN KEY (ID_User) REFERENCES User_PW (ID_User)
 )';
 crear_Attack_Unities := 'CREATE TABLE  Attack_Unities (
-        ID_Battle INT NOT NULL PRIMARY KEY,
+        ID_Battle INT NOT NULL,
         ID_Ship INT NOT NULL,
         Start_Unities INT NOT NULL,
         End_Unities INT NOT NULL,
@@ -112,7 +112,7 @@ crear_Attack_Unities := 'CREATE TABLE  Attack_Unities (
         FOREIGN KEY (ID_Ship) REFERENCES Ship (ID_Ship)
 )';
 crear_Defense_Unities := 'CREATE TABLE  Defense_Unities (
-        ID_Battle INT NOT NULL PRIMARY KEY,
+        ID_Battle INT NOT NULL,
         ID_Defense INT NOT NULL,
         Start_Unities INT NOT NULL,
         End_Unities INT NOT NULL,

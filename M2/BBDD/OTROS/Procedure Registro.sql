@@ -19,7 +19,18 @@ else
     boleano:=1;
 end if;
 exception
-when existe then boleano:=0;
+when existe then dbms_output.put_line('Existe el usuario');
+boleano:=0;
+when no_data_found then dbms_output.put_line('error --> no datos');
+boleano:=0;
+when too_many_rows then dbms_output.put_line('error --> devuelve mas de una fila');
+boleano:=0;
+when value_error then dbms_output.put_line('error --> hay un error aritmetico o de conversion');
+boleano:=0;
+when program_error then dbms_output.put_line('error --> hay un problema interno en la ejecucion del programa');
+boleano:=0;
+when others then dbms_output.put_line('error -->ha habido un error ');
+boleano:=0;
 end;
 /
 set serveroutput on;

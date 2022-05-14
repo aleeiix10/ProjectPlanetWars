@@ -27,16 +27,11 @@ if contador=1 then
 execute immediate drop10;
 dbms_output.put_line('La table Defense_Unities se ha eliminado correctamente');
 end if;
-
 select count(*) into contador from tab where tname=upper('Attack_Unities');
 if contador=1 then
 execute immediate drop9;
 dbms_output.put_line('La table Attack_Unities se ha eliminado correctamente');
 end if;
-
-
-
-
 select count(*) into contador from tab where tname=upper('Defense');
 if contador=1 then
 execute immediate drop3;
@@ -67,8 +62,13 @@ if contador=1 then
 execute immediate drop7;
 dbms_output.put_line('La table User_PW se ha eliminado correctamente');
 end if;
-
 dbms_output.put_line('');
+exception
+when no_data_found then dbms_output.put_line('error --> no datos');
+when too_many_rows then dbms_output.put_line('error --> devuelve mas de una fila');
+when value_error then dbms_output.put_line('error --> hay un error aritmetico o de conversion');
+when program_error then dbms_output.put_line('error --> hay un problema interno en la ejecucion del programa');
+when others then dbms_output.put_line('error -->ha habido un error ');
 end;
 
 /
