@@ -37,8 +37,8 @@ public class Battle {
 	
 	private int[][] initialArmies;   //Array de 2*7 que cuantifica cada tipo de unidad de los ejercitos iniciales
 	
-	private int[] actualNumberUnitsPlanet;
-	private int[] actualNumberUnitsEnemy;
+	private int[] actualNumberUnitsPlanet = new int[7];
+	private int[] actualNumberUnitsEnemy = new int [4];
 	//Array igual que initialArmies pero por separado y de las unidades actuales
 	
 	public Battle(ArrayList <MilitaryUnit> [] planetArmy,int metal,int deuterium,int lvl_att,int lvl_def) {
@@ -48,8 +48,14 @@ public class Battle {
 		enemyDrops[1] = 0;
 		planetDrops[0] = 0;
 		planetDrops[1] = 0;
+		initInitialArmies();
 		
 	}
+	
+	public int[][] getInitialArmies(){
+		return initialArmies;
+	}
+	
 	public void setArmies(ArrayList <MilitaryUnit> [] planetArmy, ArrayList <MilitaryUnit> [] enemyArmy) {
 		ArrayList[][] armi2 = {planetArmy,enemyArmy};
 		this.armies = armi2;

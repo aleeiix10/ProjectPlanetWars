@@ -105,23 +105,23 @@ public class Build{
 		listalabels[3].setText("TROOPS");
 		listalabels[4].setText("DEFENSES");
 		
-		listalabels[5].setText("     Light Hunters      "+light_num);
+		listalabels[5].setText("     Light Hunters    "+light_num);
 		listalabels[6].setText("Metal: "+Variables.METAL_COST_LIGTHHUNTER*light_num);
 		label_deut[0].setText("Deuterium: "+Variables.DEUTERIUM_COST_LIGTHHUNTER*light_num);
 		
-		listalabels[7].setText("    Missile Launcher   "+ missile_num);
+		listalabels[7].setText("Missile Launcher   "+ missile_num);
 		listalabels[8].setText("Metal: "+Variables.METAL_COST_MISSILELAUNCHER*missile_num);
 		label_deut[1].setText("Deuterium: "+Variables.DEUTERIUM_COST_MISSILELAUNCHER*missile_num);
 		
-		listalabels[9].setText("Heavy Hunters    "+heavy_num);
+		listalabels[9].setText("Heavy Hunters  "+heavy_num);
 		listalabels[10].setText("Metal: "+Variables.METAL_COST_HEAVYHUNTER*heavy_num);
 		label_deut[2].setText("Deuterium: "+Variables.DEUTERIUM_COST_HEAVYHUNTER*heavy_num);
 		
-		listalabels[11].setText("    Ion Cannon           "+ion_num);
+		listalabels[11].setText("Ion Cannon           "+ion_num);
 		listalabels[12].setText("Metal: "+Variables.METAL_COST_IONCANNON*ion_num);
 		label_deut[3].setText("Deuterium: "+Variables.DEUTERIUM_COST_IONCANNON*ion_num);
 		
-		listalabels[13].setText("         Battle Ship          "+ battle_num);
+		listalabels[13].setText("         Battle Ship        "+ battle_num);
 		listalabels[14].setText("Metal: "+Variables.METAL_COST_BATTLESHIP*battle_num);
 		label_deut[4].setText("Deuterium: "+Variables.DEUTERIUM_COST_BATTLESHIP*battle_num);
 		
@@ -129,7 +129,7 @@ public class Build{
 		listalabels[16].setText("Metal: "+Variables.METAL_COST_PLASMACANNON*plasma_num);
 		label_deut[5].setText("Deuterium: "+Variables.DEUTERIUM_COST_PLASMACANNON*plasma_num);
 		
-		listalabels[17].setText("         Armored Ship    "+armored_num);
+		listalabels[17].setText("         Armored Ship  "+armored_num);
 		listalabels[18].setText("Metal: "+Variables.METAL_COST_ARMOREDSHIP*armored_num);
 		label_deut[6].setText("Deuterium: "+Variables.DEUTERIUM_COST_ARMOREDSHIP*armored_num);
 		
@@ -164,7 +164,7 @@ public class Build{
 		label_image[5].setIcon(ion);
 		
 		Image img_plas = new ImageIcon("PlasmaCannon.png").getImage();
-		Image new_imgplas = img_plas.getScaledInstance(90, 60,  java.awt.Image.SCALE_SMOOTH);
+		Image new_imgplas = img_plas.getScaledInstance(70, 40,  java.awt.Image.SCALE_SMOOTH);
 		ImageIcon plasma = new ImageIcon(new_imgplas);
 		label_image[6].setIcon(plasma);
 
@@ -179,7 +179,7 @@ public class Build{
 		label_image[8].setIcon(deuterium);
 		
 		
-		//añadir labels con imagen a los paneles
+		//aï¿½adir labels con imagen a los paneles
 		paneles[10].add(label_image[0]);
 		paneles[20].add(label_image[1]);
 		paneles[30].add(label_image[2]);
@@ -200,7 +200,7 @@ public class Build{
 		paneles[34].setLayout(new BorderLayout());
 
 		
-		//añadir texto a los paneles a traves de las labels, el coste centrarlo y los botones después de los labeles de cost
+		//aï¿½adir texto a los paneles a traves de las labels, el coste centrarlo y los botones despuï¿½s de los labeles de cost
 		paneles[2].add(listalabels[0]);
 		paneles[50].add(listalabels[1]);
 		paneles[51].add(listalabels[2]);

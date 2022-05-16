@@ -1,10 +1,11 @@
 package Proyecto2;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Main {
+public class main {
 
-	public static void main(String[] args) throws ResourceException {
+	public static void main(String[] args) throws ResourceException, SQLException {
 		
 		if (1<2) {
 			Planet a = new Planet("Pito");
@@ -12,14 +13,24 @@ public class Main {
 			a.setMetal(301000);
 			a.setTechonologyAttack(3);
 			a.setTechnologyDefense(2);
+			
+			//INTERFAZ THREADS
+			//Battle b = new Battle(a.getArmy(),180000,26000,3,2);
+			//b.initInitialArmies();
+			//Thread t  = new Thread(b.getInitialArmies(),a);
+			
+			//AÑADIR UNIDADES
 			//a.newLigthHunter(3);
 			//a.newHeavyHunter(2);
 			//a.newBattleShip(2);
 			
-			new Build(a);
+			//INTEFAZ BUILD
+			//new Build(a);
 			
-			//a.newBattleShip(1);
-			//throw new ResourceException("You don't have the resources");
+			//INTERFAZ REPORTS
+			Conexion db=new Conexion("jdbc:oracle:thin:@192.168.40.2:1521:orcl","alumnoAMS5","alumnoAMS5");	
+			new Reports("brahian", db.getCn());
+
 		}
 
 
