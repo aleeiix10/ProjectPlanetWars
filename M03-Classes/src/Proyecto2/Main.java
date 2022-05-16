@@ -44,7 +44,6 @@ class RoundButton extends JButton {
 	 
 	  public RoundButton(String label) {
 	    super(label);
-	 
 	    setBackground(Color.lightGray);
 	    setFocusable(false);
 	 
@@ -698,9 +697,9 @@ class menu_register extends JFrame{
 }
 class menu_inicial{
 	JFrame frame = new JFrame();
-	JPanel panel[] = new JPanel[42];
+	JPanel panel[] = new JPanel[70];
 	JButton botones[]= new JButton[6];
-	JLabel etiqueta[]= new JLabel[32];
+	JLabel etiqueta[]= new JLabel[50];
 	menu_inicial(){
 		for (int i=0;i<panel.length;i++) {
 			panel[i]= new JPanel();
@@ -745,14 +744,16 @@ class menu_inicial{
 		*/
 		//panel[12].add(etiqueta[4]);
 		//PANEL 3
+		etiqueta[4].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[11].add(etiqueta[4]);
+		etiqueta[5].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[12].add(etiqueta[5]);
 		panel[3].setLayout(new GridLayout(2,1));
 		panel[3].add(panel[10]);
 		panel[10].setBackground(Color.white);
 		panel[3].add(panel[11]);
-		panel[11].setBackground(Color.red);
 		panel[10].setLayout(new GridLayout(1,2));
 		panel[10].add(panel[12]);
-		panel[12].setBackground(Color.pink);
 		panel[10].add(panel[13]);
 		panel[13].setBackground(Color.green);
 		panel[13].setLayout(new GridLayout(2,1));
@@ -790,14 +791,71 @@ class menu_inicial{
 		panel[25].setLayout(new GridLayout(2,1));
 		panel[22].add(panel[26]);
 		panel[26].setBackground(Color.blue);
-		panel[22].add(panel[27]);
-		panel[27].setBackground(Color.cyan);
+		//Panel 9
+		panel[9].setLayout(new GridLayout(2,1));
+		panel[9].add(panel[27]);
+		panel[27].setBackground(Color.white);
+		panel[9].add(panel[28]);
+		panel[28].setBackground(Color.red);
+		panel[27].setLayout(new GridLayout(1,2));
+		panel[29].add(panel[30]);
+		panel[30].setBackground(Color.pink);
+		panel[27].add(panel[29]);
+		panel[29].setBackground(Color.green);
+		panel[29].setLayout(new GridLayout(2,1));
+		panel[27].add(panel[31]);
+		panel[31].setBackground(Color.blue);
+		//Panel 7
+		panel[7].setLayout(new GridLayout(2,1));
+		panel[7].add(panel[32]);
+		panel[32].setBackground(Color.white);
+		panel[7].add(panel[33]);
+		panel[33].setBackground(Color.red);
+		panel[32].setLayout(new GridLayout(1,2));
+		panel[32].add(panel[34]);
+		panel[34].setBackground(Color.pink);
+		panel[32].add(panel[35]);
+		panel[35].setBackground(Color.green);
+		panel[35].setLayout(new GridLayout(2,1));
+		panel[35].add(panel[36]);
+		panel[36].setBackground(Color.blue);
+		panel[35].add(panel[37]);
+		panel[37].setBackground(Color.cyan);
+		//Panel 5
+		panel[5].setLayout(new GridLayout(2,1));
+		panel[5].add(panel[38]);
+		panel[38].setBackground(Color.red);
+		panel[5].add(panel[39]);
+		panel[39].setBackground(Color.yellow);
+		panel[38].setLayout(new GridLayout(1,3));
+		panel[38].add(panel[40]);
+		panel[40].setBackground(Color.GREEN);
+		panel[38].add(panel[41]);
+		panel[41].setBackground(Color.pink);
+		panel[38].add(panel[42]);
+		panel[42].setBackground(Color.lightGray);
+		panel[41].setLayout(new GridLayout(2,1));
+		panel[41].add(panel[43]);
+		panel[43].setBackground(Color.cyan);
+		panel[41].add(panel[44]);
+		//Panel 8
+		panel[8].setLayout(new GridLayout(2,1));
+		panel[8].add(panel[45]);
+		panel[45].setBackground(Color.red);
+		panel[8].add(panel[46]);
+		panel[46].setBackground(Color.yellow);
+		panel[45].setLayout(new GridLayout(1,3));
+		panel[45].add(panel[47]);
+		panel[47].setBackground(Color.GREEN);
+		panel[45].add(panel[48]);
+		panel[48].setBackground(Color.black);
+		panel[45].add(panel[49]);
+		panel[49].setBackground(Color.lightGray);
+		botones[4]=new RoundButton("  DANGER  ");
 		
-		
-		
-		botones[5]=new RoundButton("AUTORDESTRUCTION");
-		botones[5].setBackground(Color.red);
-		botones[5].setForeground(Color.white);
+		botones[4].setBackground(Color.red);
+		botones[4].setForeground(Color.white);
+		panel[48].add(botones[4]);
 		frame.setResizable(false);
 		frame.setSize(1120,682);
 		frame.setLocationRelativeTo(null);
