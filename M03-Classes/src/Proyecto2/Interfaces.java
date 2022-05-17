@@ -32,10 +32,10 @@ import javax.swing.border.Border;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-public class Main {
+public class Interfaces {
 
 	public static void main(String[] args) {
-		new menu_inicial();
+		new menu_principal();
 	}
 
 }
@@ -261,13 +261,14 @@ class menu_login{
 			text[i]= new JTextField(15);
 			text[i].setBorder(null);
 		}
+		
+		panel[0].setLayout(new GridLayout(3,3));
 		etiqueta[0].setIcon(new javax.swing.ImageIcon("gif.gif"));
 		etiqueta[15].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
 		etiqueta[16].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
 		etiqueta[17].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
 		etiqueta[18].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
 		etiqueta[19].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
-		panel[0].setLayout(new GridLayout(3,3));
 		panel[0].add(panel[1]);
 		panel[0].add(panel[2]);
 		panel[2].add(etiqueta[0]);
@@ -374,7 +375,8 @@ class menu_login{
 					text[0].setText("");
 					pass.setText("");
 					if (resultado ==1) {
-							//new play();
+							frame.dispose();
+							new menu_inicial();
 					}
 					else {
 						new PopUpRegister("You dont have account registed in game, press register to register an account or log in to try it again", "usuario.png", 50, 50,frame);
@@ -677,6 +679,7 @@ class menu_register extends JFrame{
 					}
 					else {
 							new PopUpPers("User added succesfully","USER","usuario.png",50,50);
+							new menu_inicial();
 						}
 					}
 				} catch (SQLException e1) {
@@ -696,170 +699,242 @@ class menu_register extends JFrame{
 	}
 }
 class menu_inicial{
-	JFrame frame = new JFrame();
+	JFrame frame = new JFrame("INICIAL");
 	JPanel panel[] = new JPanel[70];
-	JButton botones[]= new JButton[6];
+	JButton botones[]= new JButton[7];
 	JLabel etiqueta[]= new JLabel[50];
 	menu_inicial(){
 		for (int i=0;i<panel.length;i++) {
 			panel[i]= new JPanel();
+			panel[i].setBackground(Color.black);
 		}
 		for (int i=0;i<botones.length;i++) {
 			botones[i]= new JButton();
 			botones[i].setFocusable(false);
-			botones[i].setForeground(Color.white);
-			botones[i].setBackground(Color.lightGray);
+			
 			
 		}
 		for (int i=0;i<etiqueta.length;i++) {
 			etiqueta[i]= new JLabel();
+			etiqueta[i].setForeground(Color.white);
 			
 		}
-		frame.add(panel[0]);
-		panel[0].setLayout(new GridLayout(3,3));
 		
+		panel[0].setLayout(new GridLayout(3,3));
+		//PANEL 1
+		etiqueta[0].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[1].add(etiqueta[0]);
 		panel[0].add(panel[1]);
+		//PANEL 2
+		etiqueta[1].setIcon(new javax.swing.ImageIcon("gif.gif"));
+		panel[2].add(etiqueta[1]);
 		panel[0].add(panel[2]);
-		panel[0].add(panel[3]);
-		panel[0].add(panel[4]);
-		panel[0].add(panel[5]);
-		panel[0].add(panel[6]);
-		panel[0].add(panel[7]);
-		panel[0].add(panel[8]);
-		panel[0].add(panel[9]);
+		
+		//PANEL 3
+		panel[3].setLayout(new GridLayout(2,2));
 		
 		etiqueta[2].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
-		panel[1].add(etiqueta[2]);
-		etiqueta[3].setIcon(new javax.swing.ImageIcon("gif.gif"));
-		panel[2].add(etiqueta[3]);	
-		/*
-		etiqueta[4].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
-		panel[14].add(etiqueta[4]);
-		etiqueta[5].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
-		panel[15].add(etiqueta[5]);
-		panel[3].add(panel[14]);
-		panel[13].add(panel[16]);
-		panel[13].add(panel[17]);
-		panel[3].add(panel[15]);
-		*/
-		//panel[12].add(etiqueta[4]);
-		//PANEL 3
-		etiqueta[4].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
-		panel[11].add(etiqueta[4]);
-		etiqueta[5].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
-		panel[12].add(etiqueta[5]);
-		panel[3].setLayout(new GridLayout(2,1));
+		panel[10].add(etiqueta[2]);
 		panel[3].add(panel[10]);
-		panel[10].setBackground(Color.white);
 		panel[3].add(panel[11]);
-		panel[10].setLayout(new GridLayout(1,2));
-		panel[10].add(panel[12]);
-		panel[10].add(panel[13]);
-		panel[13].setBackground(Color.green);
-		panel[13].setLayout(new GridLayout(2,1));
-		panel[13].add(panel[14]);
-		panel[14].setBackground(Color.blue);
-		panel[13].add(panel[15]);
-		panel[15].setBackground(Color.cyan);
-		//PANEL 4
-		panel[4].setLayout(new GridLayout(2,1));
-		panel[4].add(panel[16]);
-		panel[16].setBackground(Color.white);
-		panel[4].add(panel[17]);
-		panel[17].setBackground(Color.red);
-		panel[16].setLayout(new GridLayout(1,2));
-		panel[16].add(panel[18]);
-		panel[18].setBackground(Color.pink);
-		panel[16].add(panel[19]);
-		panel[19].setBackground(Color.green);
-		panel[19].setLayout(new GridLayout(2,1));
-		panel[19].add(panel[20]);
-		panel[20].setBackground(Color.blue);
-		panel[19].add(panel[21]);
-		panel[21].setBackground(Color.cyan);
-		//PANEL 6
-		panel[6].setLayout(new GridLayout(2,1));
-		panel[6].add(panel[22]);
-		panel[22].setBackground(Color.white);
-		panel[6].add(panel[23]);
-		panel[23].setBackground(Color.red);
-		panel[22].setLayout(new GridLayout(1,2));
-		panel[25].add(panel[24]);
-		panel[24].setBackground(Color.pink);
-		panel[22].add(panel[25]);
-		panel[25].setBackground(Color.green);
-		panel[25].setLayout(new GridLayout(2,1));
-		panel[22].add(panel[26]);
-		panel[26].setBackground(Color.blue);
-		//Panel 9
-		panel[9].setLayout(new GridLayout(2,1));
-		panel[9].add(panel[27]);
-		panel[27].setBackground(Color.white);
-		panel[9].add(panel[28]);
-		panel[28].setBackground(Color.red);
-		panel[27].setLayout(new GridLayout(1,2));
-		panel[29].add(panel[30]);
-		panel[30].setBackground(Color.pink);
-		panel[27].add(panel[29]);
-		panel[29].setBackground(Color.green);
-		panel[29].setLayout(new GridLayout(2,1));
-		panel[27].add(panel[31]);
-		panel[31].setBackground(Color.blue);
-		//Panel 7
-		panel[7].setLayout(new GridLayout(2,1));
-		panel[7].add(panel[32]);
-		panel[32].setBackground(Color.white);
-		panel[7].add(panel[33]);
-		panel[33].setBackground(Color.red);
-		panel[32].setLayout(new GridLayout(1,2));
-		panel[32].add(panel[34]);
-		panel[34].setBackground(Color.pink);
-		panel[32].add(panel[35]);
-		panel[35].setBackground(Color.green);
-		panel[35].setLayout(new GridLayout(2,1));
-		panel[35].add(panel[36]);
-		panel[36].setBackground(Color.blue);
-		panel[35].add(panel[37]);
-		panel[37].setBackground(Color.cyan);
-		//Panel 5
-		panel[5].setLayout(new GridLayout(2,1));
-		panel[5].add(panel[38]);
-		panel[38].setBackground(Color.red);
-		panel[5].add(panel[39]);
-		panel[39].setBackground(Color.yellow);
-		panel[38].setLayout(new GridLayout(1,3));
-		panel[38].add(panel[40]);
-		panel[40].setBackground(Color.GREEN);
-		panel[38].add(panel[41]);
-		panel[41].setBackground(Color.pink);
-		panel[38].add(panel[42]);
-		panel[42].setBackground(Color.lightGray);
-		panel[41].setLayout(new GridLayout(2,1));
-		panel[41].add(panel[43]);
-		panel[43].setBackground(Color.cyan);
-		panel[41].add(panel[44]);
-		//Panel 8
-		panel[8].setLayout(new GridLayout(2,1));
-		panel[8].add(panel[45]);
-		panel[45].setBackground(Color.red);
-		panel[8].add(panel[46]);
-		panel[46].setBackground(Color.yellow);
-		panel[45].setLayout(new GridLayout(1,3));
-		panel[45].add(panel[47]);
-		panel[47].setBackground(Color.GREEN);
-		panel[45].add(panel[48]);
-		panel[48].setBackground(Color.black);
-		panel[45].add(panel[49]);
-		panel[49].setBackground(Color.lightGray);
-		botones[4]=new RoundButton("  DANGER  ");
 		
+		etiqueta[3].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[12].add(etiqueta[3]);
+		panel[3].add(panel[12]);
+		
+		etiqueta[4].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[13].add(etiqueta[4]);
+		panel[3].add(panel[13]);
+		
+		panel[11].setLayout(new GridLayout(2,1));
+		panel[11].add(panel[14]);
+		panel[11].add(panel[15]);
+		panel[0].add(panel[3]);
+		//PANEL 4
+		panel[4].setLayout(new GridLayout(2,2));
+		etiqueta[5].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[16].add(etiqueta[5]);
+		panel[4].add(panel[16]);
+		panel[4].add(panel[17]);
+		
+		etiqueta[6].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[18].add(etiqueta[6]);
+		panel[4].add(panel[18]);
+		
+		etiqueta[7].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[19].add(etiqueta[7]);
+		panel[4].add(panel[19]);
+		
+		panel[17].setLayout(new GridLayout(2,1));
+		etiqueta[8].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[20].add(etiqueta[8]);
+		panel[17].add(panel[20]);
+		panel[17].add(panel[21]);
+		botones[0].setText("   BUILD  ");
+		panel[21].add(botones[0]);
+		panel[0].add(panel[4]);
+		//PANEL 5
+		panel[5].setLayout(new GridLayout(2,3));
+		
+		etiqueta[9].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[22].add(etiqueta[9]);
+		panel[5].add(panel[22]);
+		
+		panel[23].setLayout(new GridLayout(2,1));
+		etiqueta[10].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[24].add(etiqueta[10]);
+		panel[23].add(panel[24]);
+		botones[1].setText("VIEW STATS");
+		panel[25].add(botones[1]);
+		panel[23].add(panel[25]);
+		panel[5].add(panel[23]);
+		
+		etiqueta[11].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[26].add(etiqueta[11]);
+		panel[5].add(panel[26]);
+		
+		etiqueta[12].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[27].add(etiqueta[12]);
+		panel[5].add(panel[27]);
+		
+		etiqueta[13].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[28].add(etiqueta[13]);
+		panel[5].add(panel[28]);
+		
+		etiqueta[14].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[29].add(etiqueta[14]);
+		panel[5].add(panel[29]);
+		
+		panel[0].add(panel[5]);
+		
+		//PANEL 6
+		panel[6].setLayout(new GridLayout(2,2));
+		panel[6].add(panel[30]);
+		panel[30].setLayout(new GridLayout(2,1));
+		etiqueta[15].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[31].add(etiqueta[15]);
+		panel[30].add(panel[31]);
+		botones[2].setText("UPGRADE");
+		panel[32].add(botones[2]);
+		panel[30].add(panel[32]);
+		panel[0].add(panel[6]);
+		
+		etiqueta[16].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[33].add(etiqueta[16]);
+		panel[6].add(panel[33]);
+		
+		etiqueta[17].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[34].add(etiqueta[17]);
+		panel[6].add(panel[34]);
+		
+		etiqueta[18].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[35].add(etiqueta[18]);
+		panel[6].add(panel[35]);
+		
+		
+		//PANEL 7 
+		panel[7].setLayout(new GridLayout(2,2));
+		etiqueta[19].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[36].add(etiqueta[19]);
+		panel[7].add(panel[36]);
+		panel[7].add(panel[37]);
+		
+		etiqueta[20].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[38].add(etiqueta[20]);
+		panel[7].add(panel[38]);
+		
+		etiqueta[21].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[39].add(etiqueta[21]);
+		panel[7].add(panel[39]);
+		
+		panel[37].setLayout(new GridLayout(2,1));
+		etiqueta[22].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[40].add(etiqueta[22]);
+		panel[37].add(panel[40]);
+		panel[37].add(panel[41]);
+		botones[3].setText("   THREAD  ");
+		panel[41].add(botones[3]);
+		panel[0].add(panel[7]);
+		
+		//PANEL 8
+		panel[8].setLayout(new GridLayout(2,3));
+		etiqueta[23].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[42].add(etiqueta[23]);
+		panel[8].add(panel[42]);
+		
+		botones[4]=new RoundButton("  DANGER  ");
 		botones[4].setBackground(Color.red);
 		botones[4].setForeground(Color.white);
-		panel[48].add(botones[4]);
+		panel[43].add(botones[4]);
+		panel[8].add(panel[43]);
+		
+		etiqueta[24].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[44].add(etiqueta[24]);
+		panel[8].add(panel[44]);
+		
+		etiqueta[25].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[45].add(etiqueta[25]);
+		panel[8].add(panel[45]);
+		
+		panel[46].setLayout(new GridLayout(2,1));
+		
+		etiqueta[27].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		
+		panel[49].add(etiqueta[27]);
+		panel[46].add(panel[49]);
+		
+		botones[6].setText("  EXIT  ");
+		panel[48].add(botones[6]);
+		panel[46].add(panel[48]);
+		
+		panel[8].add(panel[46]);
+		
+		etiqueta[26].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[47].add(etiqueta[26]);
+		panel[8].add(panel[47]);
+		
+		panel[0].add(panel[8]);
+		//PANEL 9
+		panel[9].setLayout(new GridLayout(2,2));
+		panel[9].add(panel[50]);
+		panel[50].setLayout(new GridLayout(2,1));
+		etiqueta[28].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[51].add(etiqueta[28]);
+		panel[50].add(panel[51]);
+		botones[5].setText("REPORTS");
+		panel[52].add(botones[5]);
+		panel[50].add(panel[52]);
+		panel[0].add(panel[9]);
+		
+		etiqueta[29].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[53].add(etiqueta[29]);
+		panel[9].add(panel[53]);
+		
+		etiqueta[30].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[54].add(etiqueta[30]);
+		panel[9].add(panel[54]);
+		
+		etiqueta[31].setIcon(new javax.swing.ImageIcon("neptuno.gif"));
+		panel[55].add(etiqueta[31]);
+		panel[9].add(panel[55]);
+		
+		panel[0].add(panel[9]);
+		
+		frame.add(panel[0]);
 		frame.setResizable(false);
 		frame.setSize(1120,682);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		
+		botones[6].addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new menu_principal();
+				
+			}
+		});
 	}
 	
 }
