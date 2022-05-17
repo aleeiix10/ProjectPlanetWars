@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -46,19 +47,9 @@ class RoundButton extends JButton {
 	    super(label);
 	    setBackground(Color.lightGray);
 	    setFocusable(false);
-	 
-	    /*
-	     These statements enlarge the button so that it 
-	     becomes a circle rather than an oval.
-	    */
 	    Dimension size = getPreferredSize();
 	    size.width = size.height = Math.max(size.width, size.height);
 	    setPreferredSize(size);
-	 
-	    /*
-	     This call causes the JButton not to paint the background.
-	     This allows us to paint a round background.
-	    */
 	    setContentAreaFilled(false);
 	  }
 	 
@@ -77,12 +68,9 @@ class RoundButton extends JButton {
 	    g.setColor(Color.darkGray);
 	    g.drawOval(0, 0, getSize().width - 1, getSize().height - 1);
 	  }
-	 
-	  // Hit detection.
 	  Shape shape;
 	 
 	  public boolean contains(int x, int y) {
-	    // If the button has changed size,  make a new shape object.
 	    if (shape == null || !shape.getBounds().equals(getBounds())) {
 	      shape = new Ellipse2D.Float(0, 0, getWidth(), getHeight());
 	    }
@@ -938,4 +926,108 @@ class menu_inicial{
 	}
 	
 }
+
+class menu_upgradeTec{
+	JFrame frame = new JFrame("UPGRADE");
+	JPanel [] panel = new JPanel[52];
+	JLabel [] etiquetas = new JLabel[7];
+	JButton exit = new JButton();
+	JButton [] plus = new JButton[2]; 
+	JButton [] minus = new JButton[2]; 
+	JButton [] add = new JButton[2]; 
+	menu_upgradeTec(Planet planeta){
+		frame.setLayout(new GridLayout(5,3));
+		frame.setBackground(Color.BLACK);
+		//instanciar los paneles
+		for (int i=0; i<50; i++) {
+			panel[i] = new JPanel();
+			panel[i].setBackground(Color.black);
+		}
+		for (int i=0; i<plus.length;i++) {
+			plus[i] = new JButton();
+			plus[i].setBackground(Color.yellow);
+			plus[i].setForeground(Color.black);
+			plus[i].setText("+");
+			plus[i].setFocusable(false);
+			
+			minus[i] = new JButton();
+			minus[i].setBackground(Color.yellow);
+			minus[i].setForeground(Color.black);
+			minus[i].setText("-");
+			minus[i].setFocusable(false);
+			
+			add[i] = new JButton();
+			add[i].setBackground(new Color(245,213,27));
+			add[i].setForeground(Color.black);
+			add[i].setText("ADD");
+			add[i].setFocusable(false);
+		}
+		panel[0].setLayout(new GridLayout(5,3));
+		panel[0].add(panel[1]);
+		panel[0].add(panel[2]);
+		etiquetas[0].setText("UPGRADE");
+		panel[0].add(panel[3]);
+		
+		
+		//boton salir
+		exit.setBackground(Color.red);
+		exit.setForeground(Color.black);
+		exit.setText("Go Back");
+		exit.setFocusable(false);
+		exit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+		});
+	//Funcionalidad de botones "+", "-" y "ADD"	
+		//BOTON ATAQUE
+		plus[0].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		minus[0].addActionListener(new ActionListener() {	
+				public void actionPerformed(ActionEvent e) {
+			}
+		});
+		add[0].addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		//BOTON DEFENSA
+		plus[1].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		minus[1].addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		add[1].addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		
+		Image img_icon = new ImageIcon("iconoTotal.png").getImage();
+		frame.setIconImage(img_icon);
+		frame.setSize(1120,682);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		frame.setResizable(false);
+		
+		
+	}
+	
+	
+}
+
 	
