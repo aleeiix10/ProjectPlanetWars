@@ -3,18 +3,24 @@ package Proyecto2;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
 public class Planet {
-	int technologyDefense;
-	int techonologyAttack;
-	int metal;
-	int deuterium;
-	int upgradeDefenseTechologyDeuteriumCost;
-	int upgradeAttackTechologyDeuteriumCost;
-	ArrayList <MilitaryUnit> [] army = new ArrayList[7];
+	private String planetName;
+	private int technologyDefense;
+	private int techonologyAttack;
+	private int metal;
+	private int deuterium;
+	private int upgradeDefenseTechologyDeuteriumCost;
+	private int upgradeAttackTechologyDeuteriumCost;
+	private ArrayList <MilitaryUnit> [] army = new ArrayList[7];
+	private String user;
+	Connection con;
 	/*Army[0] → arrayList de Ligth Hunter
 	Army[1] → arrayList de Heavy Hunter
 	Army[2] → arrayList de Battle Ship 
@@ -22,11 +28,25 @@ public class Planet {
 	Army[4] → arrayList de Missile Launcher
 	Army[5] → arrayList de Ion Cannon
 	Army[6] → arrayList de Plasma Cannon*/
-	Planet(){
+	Planet(String nombrePlaneta, String user, Connection con) throws SQLException{
+		this.con = con;
+		this.planetName = nombrePlaneta;
+		this.user = user;
+		this.techonologyAttack =1;
+		this.technologyDefense = 1;
 		for (int i=0; i<army.length; i++) {
 			army[i] = new ArrayList <MilitaryUnit>();
 		}
+		initPlanetToBDD();
 	};
+	
+	public Connection getCn() {
+		return this.con;
+	}
+	
+	public String getUser() {
+		return this.user;
+	}
 	
 	public int getTechnologyDefense() {
 		return technologyDefense;
@@ -53,14 +73,20 @@ public class Planet {
 		this.deuterium = deuterium;
 	}
 	public int getUpgradeDefenseTechologyDeuteriumCost() {
-		return upgradeDefenseTechologyDeuteriumCost;
-	}
+        int coste = Variables.UPGRADE_BASE_DEFENSE_TECHNOLOGY_DEUTERIUM_COST;
+        int porcentaje = Variables.UPGRADE_PLUS_DEFENSE_TECHNOLOGY_DEUTERIUM_COST;
+        int costeTotal = (int)(coste+(getTechnologyDefense() * coste * (porcentaje/100.0)));
+        return costeTotal;
+    }
 	public void setUpgradeDefenseTechologyDeuteriumCost(int upgradeDefenseTechologyDeuteriumCost) {
 		this.upgradeDefenseTechologyDeuteriumCost = upgradeDefenseTechologyDeuteriumCost;
 	}
 	public int getUpgradeAttackTechologyDeuteriumCost() {
-		return upgradeAttackTechologyDeuteriumCost;
-	}
+        int coste = Variables.UPGRADE_BASE_ATTACK_TECHNOLOGY_DEUTERIUM_COST;
+        int porcentaje = Variables.UPGRADE_PLUS_ATTACK_TECHNOLOGY_DEUTERIUM_COST;
+        int costeTotal = (int)(coste+(getTechonologyAttack() * coste * (porcentaje/100.0)));
+        return costeTotal;
+    }
 	public void setUpgradeAttackTechologyDeuteriumCost(int upgradeAttackTechologyDeuteriumCost) {
 		this.upgradeAttackTechologyDeuteriumCost = upgradeAttackTechologyDeuteriumCost;
 	}
@@ -72,38 +98,39 @@ public class Planet {
 	}
 	
 	public void upgradeTechnologyDefense() throws ResourceException {
-		int nivel =getTechnologyDefense();
-		int coste = Variables.UPGRADE_BASE_DEFENSE_TECHNOLOGY_DEUTERIUM_COST;
-		int porcentaje = Variables.UPGRADE_PLUS_DEFENSE_TECHNOLOGY_DEUTERIUM_COST;
-		int costeTotal=coste+(nivel*coste*(porcentaje/100));
-		if (costeTotal> getDeuterium()) {
-			int recursos_que_faltan=costeTotal-getDeuterium();
-			throw new ResourceException("You don't have the resources to upgrade tecnology defense, you need "+recursos_que_faltan+" more.");
-		}
-		else {
-			setTechnologyDefense(nivel+1);
-			setDeuterium(getDeuterium()-costeTotal);
-			new PopUpPers("Your defense technology has been upgraded", "LevelUP.png",70,60);
-			
-		}
-	}
+        int nivel =getTechnologyDefense();
+        int coste = Variables.UPGRADE_BASE_DEFENSE_TECHNOLOGY_DEUTERIUM_COST;
+        int porcentaje = Variables.UPGRADE_PLUS_DEFENSE_TECHNOLOGY_DEUTERIUM_COST;
+        int costeTotal = (int)(coste+(getTechnologyDefense() * coste * (porcentaje/100.0)));
+        if (costeTotal> getDeuterium()) {
+            int recursos_que_faltan=costeTotal-getDeuterium();
+            throw new ResourceException("You don't have the resources to upgrade tecnology defense, you need "+recursos_que_faltan+" more.");
+        }
+        else {
+            setTechnologyDefense(nivel+1);
+            setDeuterium(getDeuterium()-costeTotal);
+            new PopUpPers("Your defense technology has been upgraded", "LevelUP.png",70,60);
+
+        }
+    }
 	
 	public void upgradeTechnologyAttack() throws ResourceException {
-		int nivel =getTechonologyAttack();
-		int coste = Variables.UPGRADE_BASE_ATTACK_TECHNOLOGY_DEUTERIUM_COST;
-		int porcentaje = Variables.UPGRADE_PLUS_ATTACK_TECHNOLOGY_DEUTERIUM_COST;
-		int costeTotal=coste+(nivel*coste*(porcentaje/100));
-		if (costeTotal> getDeuterium()) {
-			int recursos_que_faltan=costeTotal-getDeuterium();
-			throw new ResourceException("You don't have the resources to upgrade tecnology attack, you need "+recursos_que_faltan+" more.");
-		}
-		else {
-			setTechnologyDefense(nivel+1);
-			setDeuterium(getDeuterium()-costeTotal);
-			new PopUpPers("Your attack technology has been upgraded", "LevelUP.png",70,60);
-			
-		}
-	}
+        int nivel =getTechonologyAttack();
+        int coste = Variables.UPGRADE_BASE_ATTACK_TECHNOLOGY_DEUTERIUM_COST;
+        int porcentaje = Variables.UPGRADE_PLUS_ATTACK_TECHNOLOGY_DEUTERIUM_COST;
+        int costeTotal = (int)(coste+(getTechonologyAttack() * coste * (porcentaje/100.0)));
+        if (costeTotal> getDeuterium()) {
+            int recursos_que_faltan=costeTotal-getDeuterium();
+            throw new ResourceException("You don't have the resources to upgrade tecnology attack, you need "+recursos_que_faltan+" more.");
+        }
+        else {
+            setTechonologyAttack(nivel+1);
+            setDeuterium(getDeuterium()-costeTotal);
+
+            new PopUpPers("Your attack technology has been upgraded", "LevelUP.png",70,60);
+
+        }
+    }
 	
 	public void newLigthHunter(int n) throws ResourceException {
 		int coste_deuter = Variables.DEUTERIUM_COST_LIGTHHUNTER;
@@ -132,7 +159,7 @@ public class Planet {
 					contador++;
 					setDeuterium(getDeuterium()-coste_deuter);
 					setMetal(getMetal()-coste_metal);
-					army[0].add(new LigthHunter(final_armor,final_dmg));
+					army[0].add(new LigthHunter(final_armor,final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
 				
 				throw new ResourceException("You need more resources to add all LightHunters."
@@ -144,9 +171,9 @@ public class Planet {
 				setDeuterium(getDeuterium()-coste_total_deuter);
 				setMetal(getMetal()-coste_total_metal);
 				for (int i=0; i<n;i++) {
-					army[0].add(new LigthHunter(final_armor, final_dmg));
+					army[0].add(new LigthHunter(final_armor, final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
-				new PopUpPers("LightHunters added succesfully","SOLDIER.png",60,50);
+				new PopUpPers("LightHunters added succesfully","","SOLDIER.png",60,50);
 			}
 		}
 		
@@ -179,7 +206,7 @@ public class Planet {
 					contador++;
 					setDeuterium(getDeuterium()-coste_deuter);
 					setMetal(getMetal()-coste_metal);
-					army[1].add(new HeavyHunter(final_armor,final_dmg));
+					army[1].add(new HeavyHunter(final_armor,final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
 				
 				throw new ResourceException("You need more resources to add all HeavyHunters."
@@ -191,9 +218,9 @@ public class Planet {
 				setDeuterium(getDeuterium()-coste_total_deuter);
 				setMetal(getMetal()-coste_total_metal);
 				for (int i=0; i<n;i++) {
-					army[1].add(new HeavyHunter(final_armor, final_dmg));
+					army[1].add(new HeavyHunter(final_armor, final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
-				new PopUpPers("HeavyHunter added succesfully","heavyHunter.png",60,50);
+				new PopUpPers("HeavyHunter added succesfully","","heavyHunter.png",60,50);
 			}
 		}
 		
@@ -226,7 +253,7 @@ public class Planet {
 					contador++;
 					setDeuterium(getDeuterium()-coste_deuter);
 					setMetal(getMetal()-coste_metal);
-					army[2].add(new BattleShip(final_armor,final_dmg));
+					army[2].add(new BattleShip(final_armor,final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
 				
 				throw new ResourceException("You need more resources to add all BattleShip."
@@ -238,9 +265,9 @@ public class Planet {
 				setDeuterium(getDeuterium()-coste_total_deuter);
 				setMetal(getMetal()-coste_total_metal);
 				for (int i=0; i<n;i++) {
-					army[2].add(new BattleShip(final_armor, final_dmg));
+					army[2].add(new BattleShip(final_armor, final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
-				new PopUpPers("BattleShip added succesfully","BattleShip.png",70,60);
+				new PopUpPers("BattleShip added succesfully","","BattleShip.png",70,60);
 			}
 		}
 		
@@ -273,7 +300,7 @@ public class Planet {
 					contador++;
 					setDeuterium(getDeuterium()-coste_deuter);
 					setMetal(getMetal()-coste_metal);
-					army[3].add(new ArmoredShip(final_armor,final_dmg));
+					army[3].add(new ArmoredShip(final_armor,final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
 				
 				throw new ResourceException("You need more resources to add all ArmoredShip."
@@ -285,9 +312,9 @@ public class Planet {
 				setDeuterium(getDeuterium()-coste_total_deuter);
 				setMetal(getMetal()-coste_total_metal);
 				for (int i=0; i<n;i++) {
-					army[3].add(new ArmoredShip(final_armor, final_dmg));
+					army[3].add(new ArmoredShip(final_armor, final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
-				new PopUpPers("ArmoredShip added succesfully","BattleShip.png",70,60);
+				new PopUpPers("ArmoredShip added succesfully","","BattleShip.png",70,60);
 			}
 		}
 		
@@ -321,7 +348,7 @@ public class Planet {
 					contador++;
 					setDeuterium(getDeuterium()-coste_deuter);
 					setMetal(getMetal()-coste_metal);
-					army[4].add(new MissileLauncher(final_armor,final_dmg));
+					army[4].add(new MissileLauncher(final_armor,final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
 				
 				throw new ResourceException("You need more resources to add all MissileLauncher."
@@ -333,9 +360,9 @@ public class Planet {
 				setDeuterium(getDeuterium()-coste_total_deuter);
 				setMetal(getMetal()-coste_total_metal);
 				for (int i=0; i<n;i++) {
-					army[4].add(new MissileLauncher(final_armor, final_dmg));
+					army[4].add(new MissileLauncher(final_armor, final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
-				new PopUpPers("MissileLauncher added succesfully","missile.png",120,80);
+				new PopUpPers("MissileLauncher added succesfully","","missile.png",120,80);
 			}
 		}
 		
@@ -368,7 +395,7 @@ public class Planet {
 					contador++;
 					setDeuterium(getDeuterium()-coste_deuter);
 					setMetal(getMetal()-coste_metal);
-					army[5].add(new IonCannon(final_armor,final_dmg));
+					army[5].add(new IonCannon(final_armor,final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
 				
 				throw new ResourceException("You need more resources to add all IonCannon."
@@ -380,9 +407,9 @@ public class Planet {
 				setDeuterium(getDeuterium()-coste_total_deuter);
 				setMetal(getMetal()-coste_total_metal);
 				for (int i=0; i<n;i++) {
-					army[5].add(new IonCannon(final_armor, final_dmg));
+					army[5].add(new IonCannon(final_armor, final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
-				new PopUpPers("IonCannon added succesfully","ioncannon.png",70,60);
+				new PopUpPers("IonCannon added succesfully","","ioncannon.png",70,60);
 			}
 		}
 		
@@ -415,7 +442,7 @@ public class Planet {
 					contador++;
 					setDeuterium(getDeuterium()-coste_deuter);
 					setMetal(getMetal()-coste_metal);
-					army[6].add(new PlasmaCannon(final_armor,final_dmg));
+					army[6].add(new PlasmaCannon(final_armor,final_dmg, getTechonologyAttack(), getTechnologyDefense()));
 				}
 				
 				throw new ResourceException("You need more resources to add all PlasmaCannon."
@@ -427,9 +454,9 @@ public class Planet {
 				setDeuterium(getDeuterium()-coste_total_deuter);
 				setMetal(getMetal()-coste_total_metal);
 				for (int i=0; i<n;i++) {
-					army[6].add(new PlasmaCannon(final_armor, final_dmg));
+					army[6].add(new PlasmaCannon(final_armor, final_dmg, getTechonologyAttack()+1, getTechnologyDefense()+1));
 				}
-				new PopUpPers("PlasmaCannon added succesfully","PlasmaCannon.png",90,60);
+				new PopUpPers("PlasmaCannon added succesfully","","PlasmaCannon.png",90,60);
 			}
 		}
 		
@@ -606,7 +633,127 @@ public class Planet {
 		mostrarDatos.setLocationRelativeTo(null);
 		mostrarDatos.setVisible(true);
 		mostrarDatos.setResizable(false);
-		
+	}
+	public void initPlanetToBDD() throws SQLException {
+		//nomplanet, nomuser
+		CallableStatement cst = con.prepareCall("{CALL set_planet (?,?)}");
+		cst.setString(1, this.planetName);
+		cst.setString(2, getUser());
+        cst.execute();
+	}
+//------------------------------------------------------------------------------------------------------------------------------------	
+	
+	
+	public void updatePlanetToBDD() throws SQLException {
+		//usuario, techatt, techdef, deut, met
+		CallableStatement cst = con.prepareCall("{CALL update_planet (?,?,?,?,?)}");
+		cst.setString(1, getUser());
+		cst.setInt(2, getTechonologyAttack());
+		cst.setInt(3, getTechnologyDefense());
+		cst.setInt(4, getDeuterium());
+		cst.setInt(5, getMetal());
+        cst.execute();
+	}
+	
+	public void setTroopsToBDD(ArrayList <MilitaryUnit> [] army, Connection con) throws SQLException {
+		//user, id_tropa, cantidad, lvl def, lvl att
+		int contador=1;
+		int contadorTotal = 0;
+		//for que recorre army
+		for (int i = 0; i<army.length; i++) {
+			if (i<=3) {
+				//For que recorre cada objeto
+				for (int j=0; j<army[i].size()-1; j++) {
+					if (army[i].get(j).getLvlAttTech() == army[i].get(j+1).getLvlAttTech() && army[i].get(j).getLvlDefTech() == army[i].get(j+1).getLvlDefTech()){
+						contador++;
+						if(j == army[i].size()-2) {
+							System.out.println("Usuario: "+getUser()+"| Tropa:"+army[i].get(j).toString()+" num:"+ (i+1) + "| Contador:" +contador+ "|lvlAtt :"+ army[i].get(j).getLvlAttTech()+ "| lvlDef:"+ army[i].get(j).getLvlDefTech());
+
+							CallableStatement cst = con.prepareCall("{CALL set_planet_ship (?,?,?,?,?)}");
+							cst.setString(1, getUser());
+							cst.setInt(2, i);
+							cst.setInt(3, contador);
+							cst.setInt(4, army[i].get(j).getLvlDefTech());
+							cst.setInt(5, army[i].get(j).getLvlAttTech());
+					        cst.execute();
+						}
+						
+					}
+					else {						
+						System.out.println("Usuario: "+getUser()+"| Tropa:"+army[i].get(j).toString()+" num:"+ (i+1) + "| Contador:" +contador+ "|lvlAtt :"+ army[i].get(j).getLvlAttTech()+ "| lvlDef:"+ army[i].get(j).getLvlDefTech());
+
+						CallableStatement cst = con.prepareCall("{CALL set_planet_ship (?,?,?,?,?)}");
+						cst.setString(1, getUser());
+						cst.setInt(2, i+1);
+						cst.setInt(3, contador);
+						cst.setInt(4, army[i].get(j).getLvlDefTech());
+						cst.setInt(5, army[i].get(j).getLvlAttTech());
+				        cst.execute();
+				   
+				        contador = 1;
+						System.out.println("Usuario: "+getUser()+"| Tropa:"+army[i].get(j).toString()+" num:"+ (i+1) + "| Contador:" +contador+ "|lvlAtt :"+ army[i].get(j).getLvlAttTech()+ "| lvlDef:"+ army[i].get(j).getLvlDefTech());
+
+				        if(j == army[i].size()-2) {
+				        cst = con.prepareCall("{CALL set_planet_ship (?,?,?,?,?)}");
+						cst.setString(1, getUser());
+						cst.setInt(2, i);
+						cst.setInt(3, contador);
+						cst.setInt(4, army[i].get(j).getLvlDefTech());
+						cst.setInt(5, army[i].get(j).getLvlAttTech());
+				        cst.execute();
+				        }
+					}
+				}
+				
+			}
+			else {
+				//For que recorre cada objeto
+				for (int j=0; j<army[i].size()-1; j++) {
+					if (army[i].get(j).getLvlAttTech() == army[i].get(j+1).getLvlAttTech() && army[i].get(j).getLvlDefTech() == army[i].get(j+1).getLvlDefTech()){
+						contador++;
+						if(j == army[i].size()-2) {
+							System.out.println("Usuario: "+getUser()+"| Tropa:"+army[i].get(j).toString()+" num:"+ (i+1) + "| Contador:" +contador+ "|lvlAtt :"+ army[i].get(j).getLvlAttTech()+ "| lvlDef:"+ army[i].get(j).getLvlDefTech());
+
+							CallableStatement cst = con.prepareCall("{CALL set_planet_defense (?,?,?,?,?)}");
+							cst.setString(1, getUser());
+							cst.setInt(2, i);
+							cst.setInt(3, contador);
+							cst.setInt(4, army[i].get(j).getLvlDefTech());
+							cst.setInt(5, army[i].get(j).getLvlAttTech());
+					        cst.execute();
+						}
+						
+					}
+					else {
+						System.out.println("Usuario: "+getUser()+"| Tropa:"+army[i].get(j).toString()+" num:"+ (i+1) + "| Contador:" +contador+ "|lvlAtt :"+ army[i].get(j).getLvlAttTech()+ "| lvlDef:"+ army[i].get(j).getLvlDefTech());
+
+						CallableStatement cst = con.prepareCall("{CALL set_planet_defense (?,?,?,?,?)}");
+						cst.setString(1, getUser());
+						cst.setInt(2, i);
+						cst.setInt(3, contador);
+						cst.setInt(4, army[i].get(j).getLvlDefTech());
+						cst.setInt(5, army[i].get(j).getLvlAttTech());;
+				        cst.execute();
+				        
+				        contador = 1;
+				        
+				        if(j == army[i].size()-2) {
+							System.out.println("Usuario: "+getUser()+"| Tropa:"+army[i].get(j).toString()+" num:"+ (i+1) + "| Contador:" +contador+ "|lvlAtt :"+ army[i].get(j).getLvlAttTech()+ "| lvlDef:"+ army[i].get(j).getLvlDefTech());
+
+				        cst = con.prepareCall("{CALL set_planet_defense (?,?,?,?,?)}");
+						cst.setString(1, getUser());
+						cst.setInt(2, i);
+						cst.setInt(3, contador);
+						cst.setInt(4, army[i].get(j).getLvlDefTech());
+						cst.setInt(5, army[i].get(j).getLvlAttTech());
+				        cst.execute();
+				        }
+					}
+				}
+			}
+		}
 		
 	}
+	
+	
 }
