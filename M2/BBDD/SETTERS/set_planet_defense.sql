@@ -5,7 +5,7 @@ id_p int;
 begin
 select id_user into id_u from user_pw where username = nom;
 select id_planet into id_p from planet where id_user = id_u;
-execute immediate ' insert into planet_defense values('||id_p||','||id_d||','||cant||','||lvl_d||','||lvl_a||')';
+insert into planet_defense values(id_p,id_d,cant,lvl_d,lvl_a);
 exception
 when no_data_found then dbms_output.put_line('error --> no datos');
 when too_many_rows then dbms_output.put_line('error --> devuelve mas de una fila');

@@ -11,15 +11,3 @@ when value_error then dbms_output.put_line('error --> hay un error aritmetico o 
 when program_error then dbms_output.put_line('error --> hay un problema interno en la ejecucion del programa');
 when others then dbms_output.put_line('error -->ha habido un error ');
 end;
-/
-declare
-nombre varchar2(100);
-a number;
-d number;
-deu number;
-crys number;
-metal number;
-begin
-get_planet('brahian',nombre,a,d,deu,crys,metal);
-dbms_output.put_line(nombre||','||a||','||d||','||deu||','||crys||','||metal);
-end;

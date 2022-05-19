@@ -70,10 +70,3 @@ when value_error then dbms_output.put_line('error --> hay un error aritmetico o 
 when program_error then dbms_output.put_line('error --> hay un problema interno en la ejecucion del programa');
 when others then dbms_output.put_line('error -->ha habido un error ');
 end;
-
-/
-
-set SERVEROUTPUT ON;
-begin
-drop_table();
-end;

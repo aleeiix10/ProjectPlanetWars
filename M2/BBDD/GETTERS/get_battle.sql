@@ -1,4 +1,4 @@
-create or replace procedure get_battle (nom in varchar2, id_row in number, id_b in out number,cap_m in out number,cap_d in out number,cae_m in out number,
+create or replace procedure get_battle (nom in varchar2, id_row in number, cap_m in out number,cap_d in out number,cae_m in out number,
 cae_d in out number,wm in out number, wd in out number,lap_m in out number,lap_d in out number,lap_w in out number,lae_m in out number,lae_d in out number,lae_w in out number,
 bd1 in out varchar2,bd2 in out varchar2,bd3 in out varchar2,bd4 in out varchar2)
 is
@@ -16,7 +16,6 @@ open c1;
 loop
 c:=c+1;
 fetch c1 into linea;
-id_b:=linea.id_battle;
 cap_m:=linea.cap_metal;
 cap_d:=linea.cap_deuterium;
 cae_m:=linea.cae_metal;
@@ -47,31 +46,3 @@ when value_error then dbms_output.put_line('error --> hay un error aritmetico o 
 when program_error then dbms_output.put_line('error --> hay un problema interno en la ejecucion del programa');
 when others then dbms_output.put_line('error -->ha habido un error ');
 end;
-
-/
-
-set serveroutput on;
-declare
-id_b number;
-cap_m number;
-cap_d number;
-cae_m number;
-cae_d number; 
-wm number; 
-wd number;
-lap_m number; 
-lap_d number;
-lap_w number;
-lae_m number;
-lae_d number;
-lae_w number;
-bd1 varchar2(200);
-bd2 varchar2(200);
-bd3 varchar2(200);
-bd4 varchar2(200);
-
-begin
-get_battle ('brahian',2, id_b,  cap_m, cap_d, cae_m, cae_d, wm,wd,lap_m,lap_d,lap_w,lae_m,lae_d,lae_w,bd1,bd2,bd3,bd4);
-dbms_output.put_line(id_b||','||cap_m||','|| cap_d||','|| cae_m||','||cae_d||','||wm||','||wd||','||lap_m||','||lap_d||','||lap_w||','||lae_m||','||lae_d||','||lae_w||','||bd1||','||bd2||','||bd3||','||bd4);
-end;
-

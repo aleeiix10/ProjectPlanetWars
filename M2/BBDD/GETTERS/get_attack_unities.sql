@@ -30,14 +30,3 @@ when value_error then dbms_output.put_line('error --> hay un error aritmetico o 
 when program_error then dbms_output.put_line('error --> hay un problema interno en la ejecucion del programa');
 when others then dbms_output.put_line('error -->ha habido un error ');
 end;
-/
-set serveroutput on;
-declare
-ship number;
-inicio number;
-acaba number;
-team varchar2(45);
-begin
-get_attack_unities(1,2,ship,inicio,acaba,team);
-dbms_output.put_line(ship||','||inicio||','||acaba||','||team);
-end;

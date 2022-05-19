@@ -1,4 +1,4 @@
-create or replace procedure INITIALIZE (reset_button boolean) 
+create or replace procedure INITIALIZE (reset_button number) 
 is
 existe number;
 contador int := 0;
@@ -51,7 +51,7 @@ if existe= 1 then
           contador := contador +1;
 end if;
 
-if contador != 10 or reset_button = true then
+if contador != 10 or reset_button = 1 then
           drop_table;
           create_table;
           Insert_Data;
@@ -73,9 +73,4 @@ EXCEPTION
           WHEN OTHERS THEN
                     DBMS_OUTPUT.PUT_LINE('ERROR -->HA HABIDO UN ERROR ');
 end;
-/
 
-set SERVEROUTPUT ON;
-begin
-INITIALIZE(true);
-end;

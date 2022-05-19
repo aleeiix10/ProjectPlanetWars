@@ -83,7 +83,7 @@ crear_Planet_Ship := 'CREATE TABLE Planet_Ship (
           Lvl_Attack INT NOT NULL,
           FOREIGN KEY (ID_Planet) REFERENCES Planet (ID_Planet),
           FOREIGN KEY (ID_Ship) REFERENCES Ship (ID_Ship),
-          PRIMARY KEY (ID_Planet, ID_Ship)
+          PRIMARY KEY (ID_Planet, ID_Ship, Lvl_Defense, Lvl_Attack)
 )';
 crear_Planet_Defense := 'CREATE TABLE Planet_Defense (
           ID_Planet INT NOT NULL,
@@ -99,7 +99,6 @@ crear_Enemie := 'CREATE TABLE  Enemie (
           ID_User INT NOT NULL PRIMARY KEY,
           Deuterium INT NOT NULL,
           Metal INT NOT NULL,
-          Fleet INT NOT NULL,
           FOREIGN KEY (ID_User) REFERENCES User_PW (ID_User)
 )';
 crear_Attack_Unities := 'CREATE TABLE  Attack_Unities (
@@ -192,22 +191,4 @@ EXCEPTION
                     DBMS_OUTPUT.PUT_LINE('ERROR --> hay un error aritm�tico o de conversi�n');
           WHEN PROGRAM_ERROR THEN
                     DBMS_OUTPUT.PUT_LINE('ERROR --> hay un problema interno en la ejecuci�n del programa');
-end;
-
-/
-
-set SERVEROUTPUT ON;
-begin
-CREATE_TABLE();
-
-EXCEPTION
-          WHEN NO_DATA_FOUND THEN
-                    DBMS_OUTPUT.PUT_LINE('ERROR --> no datos');
-          WHEN too_many_rows THEN
-                    DBMS_OUTPUT.PUT_LINE('ERROR --> devuelve m�s de una fila');
-          WHEN VALUE_ERROR THEN
-                    DBMS_OUTPUT.PUT_LINE('ERROR --> hay un error aritm�tico o de conversi�n');
-          WHEN PROGRAM_ERROR THEN
-                    DBMS_OUTPUT.PUT_LINE('ERROR --> hay un problema interno en la ejecuci�n del programa');
-
 end;

@@ -16,7 +16,7 @@ if existe=1 then
         id_batt:=1;
     else
         insert into Battle values(max_id+1,id_u,cap_m,cap_d,cae_m,cae_d,waste_m,waste_d,lap_m,lap_d,lap_w,lae_m,lae_d,lae_w,battle_rep1,battle_rep2,battle_rep3,battle_rep4);
-        id_batt:=max_id+1;    
+        id_batt:=max_id+1;
     end if;
 else
     raise no_existe;
@@ -29,11 +29,4 @@ when value_error then dbms_output.put_line('error --> hay un error aritmetico o 
 when program_error then dbms_output.put_line('error --> hay un problema interno en la ejecucion del programa');
 when others then dbms_output.put_line('error -->ha habido un error ');
 end;
-/
-set serveroutput on;
-declare
-si number;
-begin
-set_battle('brahian',10,20,30,40,50,60,70,80,90,100,111,120,'di','gamos','x','d',si);
-dbms_output.put_line(si);
-end;
+

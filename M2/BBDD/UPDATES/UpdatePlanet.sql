@@ -11,7 +11,3 @@ when value_error then dbms_output.put_line('error --> hay un error aritmetico o 
 when program_error then dbms_output.put_line('error --> hay un problema interno en la ejecucion del programa');
 when others then dbms_output.put_line('error -->ha habido un error ');
 end;
-/
-begin
-update_planet('Admin2020',4,6,10000,3000);
-end;

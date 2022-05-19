@@ -19,19 +19,3 @@ when value_error then dbms_output.put_line('error --> hay un error aritmetico o 
 when program_error then dbms_output.put_line('error --> hay un problema interno en la ejecucion del programa');
 when others then dbms_output.put_line('error -->ha habido un error ');
 end;
-/
-set serveroutput on;
-declare
-nombre varchar2(50);
-metal number;
-cristal number;
-deuterium number;
-initialar number;
-armor number;
-danyo number;
-velo number;
-generate number;
-begin
-get_defense(1,nombre,metal,cristal,deuterium,initialar,armor,danyo,velo,generate);
-dbms_output.put_line(nombre||','||metal||','||cristal||','||deuterium||','||initialar||','||armor||','||danyo||','||velo||','||generate);
-end;
