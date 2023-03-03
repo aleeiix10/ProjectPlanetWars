@@ -9,9 +9,9 @@ Autors:
 
 Borja: bmontoroplaza.cf@iesesteveterradas.cat
 
-Brahian: bmonsalvemuñoz.cf@iesesteveterradas.cat
+Brahian: bmonsalvemunoz.cf@iesesteveterradas.cat
 
-Aleix: asastremorena.cf@iesesteveterradas.cat
+Aleix: asastremoreno.cf@iesesteveterradas.cat
 
 Eric: eescrichalmagro.cf@iesesteveterradas.cat
 
